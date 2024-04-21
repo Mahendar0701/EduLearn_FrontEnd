@@ -26,3 +26,23 @@ jobs:
 
       - name: run test
         run: npm test
+
+      - name: Slack Notify
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status}}
+          steps: ${{toJson(steps)}}
+          channel: "#web-development"
+        if: always()
+
+      # Notify on Slack for success
+      - name: Success Notify
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Commit has been successful✅"}' ${{secrets.SLACK_WEBHOOK_URL}}
+
+      # Notify on Slack for failure
+      - name: Failure Notify
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"⚠️Error: The pipeline has failed❗"}' ${{secrets.SLACK_WEBHOOK_URL}}
