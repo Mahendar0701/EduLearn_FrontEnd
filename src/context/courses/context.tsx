@@ -35,3 +35,35 @@ export const CourseProvider: React.FC<React.PropsWithChildren> = ({
 
 export const useCourseState = () => useContext(CourseStateContext);
 export const useCourseDispatch = () => useContext(CourseDispatchContext);
+
+// import React, { createContext, useContext, useReducer } from "react";
+// import { reducer, initialState, CourseState, CourseActions } from "./reducer";
+
+// // Define a type/interface for the value prop
+// interface CourseProviderProps {
+//   value: CourseState; // Assuming CourseState is the type of the value prop
+// }
+
+// const CourseStateContext = createContext<CourseState | undefined>(undefined);
+// type CourseDispatch = React.Dispatch<CourseActions>;
+// const CourseDispatchContext = createContext<CourseDispatch | undefined>(
+//   undefined
+// );
+
+// export const CourseProvider: React.FC<CourseProviderProps> = ({
+//   children,
+//   value, // Destructure the value prop
+// }) => {
+//   const [state, dispatch] = useReducer(reducer, value); // Use the value prop as initial state
+
+//   return (
+//     <CourseStateContext.Provider value={state}>
+//       <CourseDispatchContext.Provider value={dispatch}>
+//         {children}
+//       </CourseDispatchContext.Provider>
+//     </CourseStateContext.Provider>
+//   );
+// };
+
+// export const useCourseState = () => useContext(CourseStateContext);
+// export const useCourseDispatch = () => useContext(CourseDispatchContext);

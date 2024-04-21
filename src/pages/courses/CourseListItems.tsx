@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { useCourseState } from "../../context/courses/context";
 // import { Link } from "react-router-dom";
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 
 export default function CourseListItems() {
   const courseState: any = useCourseState();
