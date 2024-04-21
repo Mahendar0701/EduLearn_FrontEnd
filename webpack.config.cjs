@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // eslint-disable-next-line no-undef
 module.exports = {
+    mode: 'development',
 
     entry: './src/main.tsx',
     output: {
@@ -18,9 +19,12 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.(js|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
-                use: 'ts-loader',
+                use: {
+                    loader: "ts-loader",
+                    // loader: "babel-loader"
+                }
             },
             {
                 test: /\.css$/i,
