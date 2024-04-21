@@ -1,0 +1,32 @@
+{
+  "translation": {
+    "Welcome": "Swagat",
+    "Cancel": "Cancelar",
+    "Comments": "Comentarios",
+    "Create": "Crear",
+    "Delete": "Borrar",
+    "Description": "Descripción",
+    "Details": "Detalles",
+    "Done": "Hecho",
+    "In progress": "En curso",
+    "Members": "Miembros",
+    "Member": "Miembro",
+    "New": "Nuevo",
+    "Pending": "Pendiente",
+    "Profile": "Perfil",
+    "Projects": "Proyectos",
+    "Project": "Proyecto",
+    "Signin": "Iniciar sesión",
+    "Signup": "Inscribirse",
+    "Submit": "Entregar",
+    "Task": "Tarea",
+    "Title": "Título",
+    "Update": "Actualizar",
+    "Name": "Nombre",
+    "TaskDetails": "Detalles de la tarea",
+    "Loading...": "Cargando...",
+    "Username": "Nombre de usuario",
+    "Password": "Contraseña",
+    "Page Not Found": "Página no encontrada"
+  }
+}

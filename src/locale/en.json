@@ -1,0 +1,26 @@
+{
+  "translation": {
+    "Welcome": "Welcome",
+    "Cancel": "Cancel",
+    "Comments": "Comments",
+    "Create": "Create",
+    "Delete": "Delete",
+    "Description": "Description",
+
+    "New": "New",
+    "Pending": "Pending",
+    "Profile": "Profile",
+
+    "Signin": "Sign In",
+    "Signup": "Sign Up",
+    "Submit": "Submit",
+
+    "Title": "Title",
+    "Update": "Update",
+
+    "Loading...": "Loading...",
+    "Username": "Username",
+    "Password": "Password",
+    "PageNotFound": "Page Not Found"
+  }
+}
