@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 const CategoryList = () => {
-  const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -18,7 +19,7 @@ const CategoryList = () => {
         );
         setCategories(response.data);
         console.log(response.data);
-      } catch (error) {
+      } catch (error: any) {
         console.error(
           "Category retrieval failed:",
           error.response?.data || error.message

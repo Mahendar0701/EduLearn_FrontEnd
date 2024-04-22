@@ -1,13 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // LessonDetails.jsx
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import LessonEditForm from "../lesson/EditLessonFormDialogue";
 
+type LessonType = {
+  id: number;
+  course: string;
+  module: string;
+  title: string;
+  content: string;
+  order: number;
+  image_link: string;
+  video_link: string;
+  instructorId: number;
+};
+
 const LessonDetails = () => {
   const { courseID, moduleID, lessonID } = useParams();
-  const [lessons, setLessons] = React.useState(null);
-  const [selecteddLesson, setSelectedLesson] = React.useState(null);
+  const [lessons, setLessons] = useState<LessonType[]>();
+  // const [selecteddLesson, setSelectedLesson] = useState<LessonType>();
+  const [selecteddLesson, setSelectedLesson] = useState<LessonType | null>(
+    null
+  );
+
   const [isLessonCompleted, setIsLessonCompleted] = useState(false);
 
   const navigate = useNavigate();
@@ -32,7 +50,7 @@ const LessonDetails = () => {
       .catch((error) => {
         console.error("Error fetching lessons:", error);
       });
-  }, [courseID, moduleID, lessonID]);
+  }, [courseID, moduleID, lessonID, authToken]);
 
   // console.log("authToken", authToken);
 
@@ -52,7 +70,7 @@ const LessonDetails = () => {
         setIsLessonCompleted(true);
         console.log("completed lesson", response.data);
       })
-      .catch((error) => {
+      .catch((_error) => {
         setIsLessonCompleted(false);
       });
   }, [courseID, moduleID, lessonID, authToken]);
@@ -62,28 +80,41 @@ const LessonDetails = () => {
   }
 
   // Find the lesson only if it's not already selected
-  if (!selecteddLesson) {
+  if (!selecteddLesson && lessons) {
     const currentLesson = lessons.find(
-      (lesson) => lesson.id === Number(lessonID)
+      (lesson: any) => lesson.id === Number(lessonID)
     );
-    setSelectedLesson(currentLesson);
+    if (currentLesson) {
+      setSelectedLesson(currentLesson);
+    }
   }
 
   if (!selecteddLesson) {
     return <div>Loading lesson details...</div>;
   }
 
-  const findLessonIndex = (lessonId) => {
-    return lessons.findIndex((lesson) => lesson.id === Number(lessonId));
+  const findLessonIndex = (lessonId: any) => {
+    if (!lessons) return -1;
+    return lessons.findIndex((lesson: any) => lesson.id === Number(lessonId));
   };
 
+  // const currentIndex = findLessonIndex(lessonID);
+  // const previousLesson = currentIndex !== -1 ? lessons[currentIndex - 1] : null;
+  // const nextLesson = lessons[currentIndex + 1];
+  // console.log("nextLesson", currentIndex, nextLesson);
+
   const currentIndex = findLessonIndex(lessonID);
-  const previousLesson = lessons[currentIndex - 1];
-  const nextLesson = lessons[currentIndex + 1];
+  const previousLesson =
+    lessons && currentIndex !== -1 ? lessons[currentIndex - 1] : null;
+  const nextLesson =
+    lessons && currentIndex !== -1 ? lessons[currentIndex + 1] : null;
   console.log("nextLesson", currentIndex, nextLesson);
 
-  const navigateToLesson = (lessonId) => {
-    setSelectedLesson(lessons.find((lesson) => lesson.id === Number(lessonId)));
+  const navigateToLesson = (lessonId: any) => {
+    if (!lessons) return;
+    setSelectedLesson(
+      lessons.find((lesson: any) => lesson.id === Number(lessonId)) || null
+    );
     navigate(
       `/dashboard/courses/${courseID}/modules/${moduleID}/lessons/${lessonId}`
     );
@@ -104,7 +135,7 @@ const LessonDetails = () => {
           },
         }
       )
-      .then((response) => {
+      .then((_response) => {
         setIsLessonCompleted(true);
         console.log("marked lesson as complete");
       })
@@ -136,7 +167,7 @@ const LessonDetails = () => {
           },
         }
       )
-      .then((response) => {
+      .then((_response) => {
         console.log("deleted lesson successfully");
       })
       .catch((error) => {
@@ -164,8 +195,8 @@ const LessonDetails = () => {
   const renderedContent = { __html: selecteddLesson.content };
 
   let isCreator = false;
-  const userDataString = localStorage.getItem("userData");
-  const userData = JSON.parse(userDataString);
+  const userDataString = localStorage.getItem("userData") || "";
+  const userData = JSON.parse(userDataString) || "";
   const userId = userData.user_id;
 
   if (userId && selecteddLesson.instructorId == userId) {

@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useCourseDetailsState } from "../../context/course_details/context";
 import { useModuleState } from "../../context/module/context";
 import { Link } from "react-router-dom";
@@ -11,14 +12,14 @@ export default function CourseDetails() {
   const [selectedModule, setSelectedModule] = useState(null);
   const [isEnrolled, setIsEnrolled] = useState(false);
 
-  const handleModuleClick = (moduleId) => {
+  const handleModuleClick = (moduleId: null) => {
     // Toggle selected module when clicked
     setSelectedModule((prevModule) =>
       prevModule === moduleId ? null : moduleId
     );
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const courseDetailsState: any = useCourseDetailsState();
   const moduleState: any = useModuleState();
 
@@ -66,7 +67,7 @@ export default function CourseDetails() {
 
       // If the enrollment is successful, you can handle it accordingly
       console.log("Enrollment successful: ", response.data);
-    } catch (error) {
+    } catch (error: any) {
       // Handle errors during enrollment
       console.error("Enrollment failed: ", error.response.data);
     }
@@ -84,8 +85,8 @@ export default function CourseDetails() {
         }
       );
 
-      console.log("added to cart", response.data);
-    } catch (error) {
+      console.log("added to cart", (await response).data);
+    } catch (error: any) {
       error.response?.data || error.message;
     }
   };
@@ -97,7 +98,7 @@ export default function CourseDetails() {
           Authorization: `Token ${authToken}`,
         },
       })
-      .then((response) => {
+      .then((_response) => {
         console.log("deleted course successfully");
       })
       .catch((error) => {
@@ -124,13 +125,14 @@ export default function CourseDetails() {
     return (
       <div className="text-center text-red-600 dark:text-red-400">
         {errorMessage}
+        {errorMessage1}
       </div>
     );
   }
 
   let isCreator = false;
-  const userDataString = localStorage.getItem("userData");
-  const userData = JSON.parse(userDataString);
+  const userDataString = localStorage.getItem("userData") || "";
+  const userData = JSON.parse(userDataString) || "";
   let userId = null;
 
   if (userData) {
@@ -246,7 +248,7 @@ export default function CourseDetails() {
               <div>
                 <h1 className="text-3xl font-semibold my-2">Course Outline</h1>
                 <ul>
-                  {modules.map((module) => (
+                  {modules.map((module: any) => (
                     <li
                       key={module.id}
                       className={`cursor-pointer pr-5 pl-5 py-4 border hover:bg-slate-200 bg-slate-100 my-2 ${

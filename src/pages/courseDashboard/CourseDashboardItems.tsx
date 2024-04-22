@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCourseDetailsState } from "../../context/course_details/context";
 import { useModuleState } from "../../context/module/context";
 import { useLessonState } from "../../context/lessons/context";
 import axios from "axios";
 import LessonDetails from "./LessonDetails";
 // import ModuleTab from "./ModuleTab";
-import LessonFormComponent from "../lesson";
+// import LessonFormComponent from "../lesson";
 import NewLesson from "../lesson/LessonFormDialogue";
 import NewModule from "../module/ModuleForm";
 import ModuleEditForm from "../module/EditModuleForm";
@@ -14,10 +16,21 @@ import ModuleEditForm from "../module/EditModuleForm";
 // import Chart from "chart.js/auto";
 import DonutGraph from "../dashboard/DonutGraph";
 // import CourseDetails from "../courseDetails";
-import Rating from "react-rating-stars-component";
+// import Rating from "react-rating-stars-component";
+
+type ModuleType = {
+  id: number;
+  course: string;
+  title: string;
+  description: string;
+  order: number;
+  image_link: string;
+  video_link: string;
+  instructorId: number;
+};
 
 export default function CourseDashboard() {
-  const [selectedModule, setSelectedModule] = useState(null);
+  const [selectedModule, setSelectedModule] = useState<ModuleType>();
   const [selectedLesson, setSelectedLesson] = useState(null);
   const [selectedModuleIndex, setSelectedModuleIndex] = useState(0);
   const [completedLessons, setCompletedLessons] = useState([]);
@@ -31,23 +44,31 @@ export default function CourseDashboard() {
   const { courseID, moduleID, lessonID } = useParams(); // Extract courseID from the URL parameters
   console.log(courseID, moduleID, lessonID);
 
-  const handleModuleClick = (moduleId) => {
+  const handleModuleClick = (moduleId: any) => {
     // setTotalLessons(lessons.length);
-    setSelectedModule((prevModule) =>
-      prevModule === moduleId ? null : moduleId
-    );
+
+    setSelectedModule((prevModule) => {
+      if (moduleId === prevModule) {
+        return null;
+      } else if (moduleId) {
+        return moduleId;
+      } else {
+        return null;
+      }
+      // prevModule === moduleId ? null : moduleId;
+    });
     setSelectedLesson(null); // Reset selected lesson when a new module is clicked
   };
 
-  const handleLessonClick = (lessonId) => {
+  const handleLessonClick = (lessonId: null) => {
     setSelectedLesson((prevLesson) =>
       prevLesson === lessonId ? null : lessonId
     );
   };
 
-  const courseDetailsState = useCourseDetailsState();
-  const moduleState = useModuleState();
-  const lessonState = useLessonState();
+  const courseDetailsState: any = useCourseDetailsState();
+  const moduleState: any = useModuleState();
+  const lessonState: any = useLessonState();
 
   const authToken = localStorage.getItem("authToken");
 
@@ -57,32 +78,35 @@ export default function CourseDashboard() {
 
   // Filter the selected module based on moduleID
   const selecteddModule = modules.find(
-    (module) => module.id === Number(moduleID)
+    (module: { id: number }) => module.id === Number(moduleID)
   );
   console.log("selecteddModule", selecteddModule);
 
   console.log("lessons", lessons);
 
   // Filter the selected lesson based on lessonID
-  const selecteddLesson = lessons.find(
-    (lesson) => lesson.id === Number(lessonID)
-  );
+  // const selecteddLesson = lessons.find(
+  //   (lesson) => lesson.id === Number(lessonID)
+  // );
 
   useEffect(() => {
     if (modules.length > 0) {
       setTotalLessons(
-        modules.reduce((acc, module) => acc + module.num_lessons, 0)
+        modules.reduce(
+          (acc: any, module: { num_lessons: any }) => acc + module.num_lessons,
+          0
+        )
       );
     }
   }, [modules]);
 
   useEffect(() => {
     const selectedModuleFromURL = modules.find(
-      (module) => module.id === Number(moduleID)
+      (module: { id: number }) => module.id === Number(moduleID)
     );
 
     const selectedLessonFromURL = lessons.find(
-      (lesson) => lesson.id === Number(lessonID)
+      (lesson: { id: number }) => lesson.id === Number(lessonID)
     );
 
     if (
@@ -114,7 +138,7 @@ export default function CourseDashboard() {
         setCompletedLessons(response.data || []);
         console.log("completed lesson", response.data);
       })
-      .catch((error) => {
+      .catch((_error) => {
         setCompletedLessons([]);
       });
   }, [courseID, moduleID, lessonID, authToken]);
@@ -175,7 +199,7 @@ export default function CourseDashboard() {
           },
         }
       )
-      .then((response) => {
+      .then((_response) => {
         console.log("deleted module successfully");
       })
       .catch((error) => {
@@ -183,12 +207,12 @@ export default function CourseDashboard() {
       });
   };
 
-  const isModuleCompleted = (moduleId) => {
+  const isModuleCompleted = (moduleId: any) => {
     const moduleLessons = lessons.filter(
-      (lesson) => lesson.module === moduleId
+      (lesson: { module: any }) => lesson.module === moduleId
     );
     const completedModuleLessons = completedLessons.filter(
-      (completedLesson) => completedLesson.module === moduleId
+      (completedLesson: any) => completedLesson.module === moduleId
     );
 
     const ratio =
@@ -200,8 +224,10 @@ export default function CourseDashboard() {
   };
 
   let isCreator = false;
-  const userDataString = localStorage.getItem("userData");
+  const userDataString = localStorage.getItem("userData") || "";
+
   const userData = JSON.parse(userDataString);
+
   const userId = userData.user_id;
 
   if (userId && course.instructorId == userId) {
@@ -230,7 +256,7 @@ export default function CourseDashboard() {
         </h1>
         {isCreator && <NewModule />}
         <ul>
-          {modules.map((module) => (
+          {modules.map((module: any) => (
             <li
               key={module.id}
               className={`cursor-pointer pr-5 pl-5 py-4 my-1 border ${
@@ -305,8 +331,10 @@ export default function CourseDashboard() {
                 <div className="items-center justify-center mx-32 my-10">
                   <ul>
                     {lessons
-                      .filter((lesson) => lesson.module === selectedModule.id)
-                      .map((lesson) => (
+                      .filter(
+                        (lesson: any) => lesson.module === selectedModule.id
+                      )
+                      .map((lesson: any) => (
                         <li
                           key={lesson.id}
                           className={`cursor-pointer my-5 list-disc ${
@@ -326,7 +354,7 @@ export default function CourseDashboard() {
                             </h3>
                             {completedLessons &&
                               completedLessons.some(
-                                (completedLesson) =>
+                                (completedLesson: any) =>
                                   completedLesson.lesson === lesson.id
                               ) && (
                                 <p className="text-green-500">(Completed)</p>
@@ -417,7 +445,7 @@ export default function CourseDashboard() {
                     completedLessons={completedLessons}
                   />
 
-                  <div className="flex items-center">
+                  {/* <div className="flex items-center">
                     <p className="mr-3">Rate Now:</p>
                     <Rating
                       count={5}
@@ -426,7 +454,7 @@ export default function CourseDashboard() {
                       size={24}
                       activeColor="#ffd700"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             )}

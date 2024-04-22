@@ -1,18 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Mycourses.tsx
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCourseState } from "../../context/courses/context";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import DonutGraph from "../dashboard/DonutGraph";
 
 const ReportItems = () => {
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
-  const [completedLessons, setCompletedLessons] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const [modules, setModules] = useState([]);
-  const [lessons, setLessons] = useState([]);
+  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
+  const [completedLessons, setCompletedLessons] = useState<any[]>([]);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [modules, setModules] = useState<any[]>([]);
+  // const [lessons, setLessons] = useState([]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const courseState: any = useCourseState();
 
   const { courses, isLoading, isError, errorMessage } = courseState;
@@ -31,7 +34,7 @@ const ReportItems = () => {
         setEnrolledCourses(response.data);
         console.log("setEnrolledCourses", response.data);
 
-        response.data.forEach((enrollment) => {
+        response.data.forEach((enrollment: any) => {
           getCompletedLessons(enrollment.course);
         });
       })
@@ -40,7 +43,7 @@ const ReportItems = () => {
       });
   }, []);
 
-  const getCompletedLessons = (courseID) => {
+  const getCompletedLessons = (courseID: any) => {
     // Check if the lesson is marked as complete
 
     axios
@@ -64,7 +67,7 @@ const ReportItems = () => {
       });
   };
 
-  const getModules = (courseID) => {
+  const getModules = (courseID: any) => {
     // Check if the lesson is marked as complete
 
     axios
@@ -94,7 +97,7 @@ const ReportItems = () => {
   const enrolledCoursesIds = enrolledCourses.map(
     (enrollment) => enrollment.course
   );
-  const filteredCourses = courses.filter((course) =>
+  const filteredCourses = courses.filter((course: { id: any }) =>
     enrolledCoursesIds.includes(course.id)
   );
 
@@ -102,13 +105,13 @@ const ReportItems = () => {
   //   return lessons.filter((lesson) => lesson.course === courseID);
   // };
 
-  const getCourseCompletedLessons = (courseID) => {
+  const getCourseCompletedLessons = (courseID: any) => {
     return completedLessons.filter(
       (completedLesson) => completedLesson.course == courseID
     );
   };
 
-  const getPercentage = (course, courseID) => {
+  const getPercentage = (course: any, courseID: any) => {
     const completedLessonsCount = getCourseCompletedLessons(courseID).length;
     const totalLessonsCount = course.num_lessons;
 
@@ -120,7 +123,7 @@ const ReportItems = () => {
     return isNaN(percentage) ? 0 : percentage; // Ensure the result is not NaN
   };
 
-  const noOfIncompleteLessons = (course, courseID) => {
+  const noOfIncompleteLessons = (course: any, courseID: number) => {
     const completedLessonsCount = getCourseCompletedLessons(courseID).length;
     const totalLessonsCount = course.num_lessons;
 
@@ -132,7 +135,7 @@ const ReportItems = () => {
     return incompleteLessons; // Ensure the result is not NaN
   };
 
-  const getCompletedLessonsForModule = (courseID, moduleID) => {
+  const getCompletedLessonsForModule = (courseID: any, moduleID: any) => {
     // Filter completed lessons for the specific module
     return completedLessons.filter(
       (completedLesson) =>
@@ -141,7 +144,7 @@ const ReportItems = () => {
     );
   };
 
-  const getModuleCompletionRatio = (completed, total) => {
+  const getModuleCompletionRatio = (completed: number, total: number) => {
     if (total === 0) {
       return 0; // To avoid division by zero
     }
@@ -157,13 +160,13 @@ const ReportItems = () => {
         onChange={(e) => {
           const selectedCourseId = parseInt(e.target.value);
           const selectedCourse = filteredCourses.find(
-            (course) => course.id === selectedCourseId
+            (course: any) => course.id === selectedCourseId
           );
           setSelectedCourse(selectedCourse);
         }}
       >
         <option>Select your course</option>
-        {filteredCourses.map((course) => (
+        {filteredCourses.map((course: any) => (
           <option
             className="bg-white text-black py-3"
             key={course.id}

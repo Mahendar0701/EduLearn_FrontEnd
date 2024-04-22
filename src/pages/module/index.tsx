@@ -1,6 +1,7 @@
 import React from "react";
+import SigninForm from "../signin/SigninForm";
 // Just import the file
-import SigninForm from "./SigninForm";
+// import SigninForm from "./SigninForm";
 // import RichTextEditor from "../../components/RichTextEditor";
 
 const Signin: React.FC = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // First, I'll import the createContext, useContext and useReducer from React
 
 import React, { createContext, useContext, useReducer } from "react";

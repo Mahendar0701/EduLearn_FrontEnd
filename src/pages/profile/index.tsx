@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 // Just import the file
-import ProfileItems from "./ProfileItems";
 // import ProfileEditForm from "./EditProfileForm";
 const ProfileEditForm = React.lazy(() => import("./EditProfileForm"));
 import ErrorBoundary from "../../components/ErrorBoundary";

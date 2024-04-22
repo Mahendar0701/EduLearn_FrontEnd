@@ -1,7 +1,6 @@
 // import * as React from "react";
 import { Outlet } from "react-router-dom";
 import Appbar from "./Appbar";
-import Dashboard from "../../pages/dashboard";
 // import { DefaultSidebar } from "./Sidebar";
 
 const AccountLayout = () => {

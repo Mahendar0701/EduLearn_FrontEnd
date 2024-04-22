@@ -1,7 +1,7 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   username: string;
@@ -11,7 +11,7 @@ type Inputs = {
 };
 
 const SignupForm = () => {
-  const [error] = useState(null);
+  // const [error] = useState(null);
   // console.log(error);
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ const SignupForm = () => {
 
       console.log("Sign-up successfull");
       navigate("/signin");
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "sigup creation failed:",
         error.response?.data || error.message

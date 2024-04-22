@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import JoditEditor from "jodit-react";
@@ -21,7 +22,7 @@ type Inputs = {
 const NewLesson = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { courseID, moduleID, lessonID } = useParams();
+  const { courseID, moduleID } = useParams();
 
   // Next, I'll add a new state to handle errors.
   const [error, setError] = useState<string | null>(null);
@@ -64,7 +65,7 @@ const NewLesson = () => {
     const { title, order, image_link, video_link, instructorId } = data;
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://127.0.0.1:8000/api/courses/${courseID}/modules/${moduleID}/lessons/`,
         {
           title,
@@ -93,7 +94,7 @@ const NewLesson = () => {
       setError(null);
 
       // Perform any necessary navigation or state updates after successful sign-in
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "Lesson creation failed:",
         error.response?.data || error.message

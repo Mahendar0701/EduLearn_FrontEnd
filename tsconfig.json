@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node"],
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -21,6 +22,8 @@
     "noFallthroughCasesInSwitch": true,
 
     "esModuleInterop": true
+
+    // "typeRoots": ["node_modules/@types", "custom_typings"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

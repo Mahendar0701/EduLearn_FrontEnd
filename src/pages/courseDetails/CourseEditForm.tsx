@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 // import JoditEditor from "jodit-react";
-import { Fragment, useState, useRef, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface CourseData {
+  id: number;
   title: string;
   description: string;
   image: string;
@@ -27,14 +28,14 @@ interface CourseData {
 }
 
 const CourseEditForm: React.FC<{
-  course: CourseType;
+  course: CourseData;
   courseId: string;
-}> = ({ course, courseId }) => {
+}> = ({ course }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Next, I'll add a new state to handle errors.
   const [error, setError] = useState<string | null>(null);
-  const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -50,7 +51,7 @@ const CourseEditForm: React.FC<{
         );
         setCategories(response.data);
         console.log(response.data);
-      } catch (error) {
+      } catch (error: any) {
         console.error(
           "Category retrieval failed:",
           error.response?.data || error.message
@@ -92,7 +93,7 @@ const CourseEditForm: React.FC<{
     setIsOpen(true);
   };
 
-  function getCookie(name) {
+  function getCookie(name: string) {
     const cookieValue = document.cookie
       .split("; ")
       .find((row) => row.startsWith(name + "="));
@@ -118,9 +119,9 @@ const CourseEditForm: React.FC<{
       console.log("course deleted successfully", response.data);
 
       setIsOpen(false);
-      history.push("/dashboard");
+      // history.push("/dashboard");
       // Perform any necessary navigation or state updates after successful deletion
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "course deletion failed:",
         error.response?.data || error.message
@@ -156,7 +157,7 @@ const CourseEditForm: React.FC<{
       setError(null);
 
       // Perform any necessary navigation or state updates after successful sign-in
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Course updation failed. Please try again.", {
         autoClose: 3000,
       });
@@ -233,12 +234,12 @@ const CourseEditForm: React.FC<{
                           <select
                             {...register("category_name")}
                             className={`w-full border border-gray-400 rounded-md py-2 px-3 my-2 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-                              errors.category ? "border-red-500" : ""
+                              errors.category_name ? "border-red-500" : ""
                             }`}
                           >
                             <option value="">Select category</option>
                             {categories &&
-                              categories.map((category) => (
+                              categories.map((category: any) => (
                                 <option
                                   key={category.id}
                                   value={category.title}
@@ -370,7 +371,7 @@ const CourseEditForm: React.FC<{
                             Prerequisites:
                           </label>
                           <textarea
-                            type="text"
+                            // type="text"
                             placeholder="Enter prerequisites..."
                             {...register("prerequisites")}
                             className={`w-full border border-gray-400 rounded-md py-2 px-3 my-2 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${

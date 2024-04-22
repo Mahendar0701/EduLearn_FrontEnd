@@ -1,7 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const DonutGraph = ({ totalLessons, completedLessons }) => {
+interface DonutGraphProps {
+  totalLessons: number;
+  completedLessons: number[];
+}
+
+const DonutGraph = ({ totalLessons, completedLessons }: DonutGraphProps) => {
   const chartContainer = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

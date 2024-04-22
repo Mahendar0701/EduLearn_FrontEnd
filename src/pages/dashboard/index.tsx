@@ -3,8 +3,7 @@ import React, { useRef } from "react";
 import Courses from "../courses";
 import CreateCourseForm from "../courses/NewCourse";
 import CreateCategoryForm from "../categories/NewCategory";
-import CategoryList from "../categories/CategoryList";
-import Slider from "react-slick";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useTranslation } from "react-i18next";
@@ -12,7 +11,7 @@ import { useTranslation } from "react-i18next";
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
   let isInstructor = false;
-  const userDataString = localStorage.getItem("userData");
+  const userDataString = localStorage.getItem("userData") || "";
   const userData = JSON.parse(userDataString);
   let role = null;
 
@@ -26,15 +25,15 @@ const Dashboard: React.FC = () => {
 
   console.log("isInstructor", isInstructor);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 3,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 3000,
+  // };
 
   const featuredCoursesRef = useRef<HTMLDivElement>(null);
 

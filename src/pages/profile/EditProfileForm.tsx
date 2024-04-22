@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 
@@ -10,9 +12,28 @@ type Inputs = {
 };
 
 const ProfileEditForm = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState<any>({});
-  const [loading, setLoading] = useState(true);
+  const [_isOpen, setIsOpen] = useState(false);
+  // const [user, setUser] = useState<any>({});
+  // const [loading, setLoading] = useState(true);
+
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<Inputs>({
+  //   defaultValues: {
+  //     username: localStorage.getItem("userData")
+  //       ? JSON.parse(localStorage.getItem("userData")).username || ""
+  //       : "",
+  //     email: localStorage.getItem("userData")
+  //       ? JSON.parse(localStorage.getItem("userData")).email
+  //       : "",
+  //     password: "", // Assuming you don't want to pre-fill the password for security reasons
+  //     role: localStorage.getItem("userData")
+  //       ? JSON.parse(localStorage.getItem("userData")).role
+  //       : "",
+  //   },
+  // });
 
   const {
     register,
@@ -21,19 +42,19 @@ const ProfileEditForm = () => {
   } = useForm<Inputs>({
     defaultValues: {
       username: localStorage.getItem("userData")
-        ? JSON.parse(localStorage.getItem("userData")).username
+        ? JSON.parse(localStorage.getItem("userData")!)?.username || ""
         : "",
       email: localStorage.getItem("userData")
-        ? JSON.parse(localStorage.getItem("userData")).email
+        ? JSON.parse(localStorage.getItem("userData")!)?.email || ""
         : "",
       password: "", // Assuming you don't want to pre-fill the password for security reasons
       role: localStorage.getItem("userData")
-        ? JSON.parse(localStorage.getItem("userData")).role
+        ? JSON.parse(localStorage.getItem("userData")!)?.role || ""
         : "",
     },
   });
 
-  function getCookie(name) {
+  function getCookie(name: string) {
     const cookieValue = document.cookie
       .split("; ")
       .find((row) => row.startsWith(name + "="));
@@ -41,13 +62,13 @@ const ProfileEditForm = () => {
     return cookieValue ? cookieValue.split("=")[1] : null;
   }
   const csrfToken = getCookie("csrftoken");
-  const [error, setError] = useState<string | null>(null);
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-  const openModal = () => {
-    setIsOpen(true);
-  };
+  const [_error, setError] = useState<string | null>(null);
+  // const _closeModal = () => {
+  //   setIsOpen(false);
+  // };
+  // const _openModal = () => {
+  //   setIsOpen(true);
+  // };
 
   //   useEffect(() => {
   //     const fetchUserData = async () => {
@@ -114,7 +135,7 @@ const ProfileEditForm = () => {
 
       // Clear previous errors if any
       setError(null);
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "profile update failed:",
         error.response?.data || error.message

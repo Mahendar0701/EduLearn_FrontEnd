@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 // import JoditEditor from "jodit-react";
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface CourseData {
@@ -33,7 +35,7 @@ const EditCourseForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<CourseData>();
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -41,7 +43,7 @@ const EditCourseForm = () => {
     setIsOpen(true);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<CourseData> = async (data) => {
     const {
       title,
       description,
@@ -62,7 +64,7 @@ const EditCourseForm = () => {
     } = data;
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/courses/", {
+      await axios.post("http://127.0.0.1:8000/api/courses/", {
         title,
         description,
         image,
@@ -87,7 +89,7 @@ const EditCourseForm = () => {
 
       // Clear previous errors if any
       setError(null);
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "course creation failed:",
         error.response?.data || error.message

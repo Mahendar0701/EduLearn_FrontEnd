@@ -19,7 +19,7 @@ export const createCourse = async (dispatch: any, courseData: any) => {
     const data = response.data;
     console.log("created course", data);
     dispatch({ type: "CREATE_COURSE_SUCCESS", payload: data });
-  } catch (error) {
+  } catch (error: any) {
     console.log("Error creating course:", error);
     console.error(
       "course creation failed:",

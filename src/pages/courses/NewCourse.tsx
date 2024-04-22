@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 // import JoditEditor from "jodit-react";
-import { Fragment, useState, useRef, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createCourse } from "../../context/courses/action";
 import { useCourseDispatch } from "../../context/courses/context";
 // import { useDispatch } from "react-redux";
 
 interface CourseData {
+  id: number;
   title: string;
   description: string;
   image: string;
@@ -16,7 +18,7 @@ interface CourseData {
   duration: number;
   level: string;
   price: string;
-  category: string;
+  category: any;
   category_name: string;
   enrolledStudents: number;
   rating: number;
@@ -27,14 +29,23 @@ interface CourseData {
   resources: string;
 }
 
+interface CategoryData {
+  id: number;
+  title: string;
+}
+
 const CreateCourseForm = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Next, I'll add a new state to handle errors.
   const [error, setError] = useState<string | null>(null);
 
-  const [categories, setCategories] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [categories, setCategories] = useState<CategoryData[]>([]);
+  // const [selectedCategory, setSelectedCategory] = useState<CourseData>();
+  const [selectedCategory, setSelectedCategory] = useState<
+    CategoryData | undefined
+  >();
+
   const authToken = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -51,7 +62,7 @@ const CreateCourseForm = () => {
         );
         setCategories(response.data);
         console.log(response.data);
-      } catch (error) {
+      } catch (error: any) {
         console.error(
           "Category retrieval failed:",
           error.response?.data || error.message
@@ -161,18 +172,18 @@ const CreateCourseForm = () => {
                             onChange={(e) => {
                               const selectedCategoryName = e.target.value;
                               const selectedCategory = categories.find(
-                                (category) =>
+                                (category: any) =>
                                   category.title === selectedCategoryName
                               );
                               if (selectedCategory) {
                                 setValue("category", selectedCategory.id);
-                                setSelectedCategory(selectedCategory.id);
+                                setSelectedCategory(selectedCategory);
                               }
                             }}
                           >
                             <option value="">Select category</option>
                             {categories &&
-                              categories.map((category) => (
+                              categories.map((category: any) => (
                                 <option
                                   key={category.id}
                                   value={category.title}
@@ -191,7 +202,10 @@ const CreateCourseForm = () => {
                         <input
                           type="hidden"
                           {...register("category")}
-                          value={selectedCategory || ""}
+                          // value={selectedCategory || ""}
+                          value={
+                            selectedCategory ? String(selectedCategory.id) : ""
+                          }
                         />
                       </div>
 
@@ -315,7 +329,6 @@ const CreateCourseForm = () => {
                             Prerequisites:
                           </label>
                           <textarea
-                            type="text"
                             placeholder="Enter prerequisites..."
                             {...register("prerequisites")}
                             className={`w-full border border-gray-400 rounded-md py-2 px-3 my-2 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${

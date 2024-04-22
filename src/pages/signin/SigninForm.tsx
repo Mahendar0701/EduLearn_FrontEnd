@@ -1,5 +1,5 @@
-import React, { useState, useRef, useMemo } from "react";
-import JoditEditor from "jodit-react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +10,7 @@ type Inputs = {
 };
 
 const SigninForm = () => {
-  const editor = useRef(null);
-  const [content, setContent] = useState("");
+  // const [content, setContent] = useState("");
 
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -48,7 +47,7 @@ const SigninForm = () => {
       setError(null);
       navigate("/");
       // Perform any necessary navigation or state updates after successful sign-in
-    } catch (error) {
+    } catch (error: any) {
       console.error("signin  failed:", error.response?.data || error.message);
       setError("Invalid email or password");
     }

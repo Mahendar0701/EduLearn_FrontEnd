@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
@@ -12,10 +12,6 @@ const navigation = [
   { name: "Report", href: "/dashboard/report", current: false },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const authenticated = !!localStorage.getItem("authToken");
 // const authenticated = !!localStorage.getItem("authToken");
 console.log("authenticated", authenticated);
@@ -23,11 +19,11 @@ console.log("authenticated", authenticated);
 export default function Example() {
   const [categories, setCategories] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   const fetchCategories = async () => {
     try {
-      const authToken = localStorage.getItem("authToken");
+      // const authToken = localStorage.getItem("authToken");
       const response = await axios.get(
         "http://127.0.0.1:8000/api/categories/"
         // {
@@ -38,7 +34,7 @@ export default function Example() {
       );
       console.log("categories", response.data);
       setCategories(response.data);
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "Category retrieval failed:",
         error.response?.data || error.message
@@ -54,6 +50,10 @@ export default function Example() {
     i18n.changeLanguage(language);
     setCurrentLanguage(language);
   };
+
+  function classNames(...classes: string[]): string {
+    return classes.filter(Boolean).join(" ");
+  }
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -95,7 +95,7 @@ export default function Example() {
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
-                        {item.name}
+                        {t(`${item.name}`)}
                       </a>
                     ))}
 
@@ -113,10 +113,9 @@ export default function Example() {
                           className="relative"
                         >
                           <Menu.Button
-                            className={classNames(
-                              "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium",
-                              "focus:outline-none"
-                            )}
+                            className={
+                              "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium focus:outline-none"
+                            }
                           >
                             Catalog &#11167;
                           </Menu.Button>
@@ -131,13 +130,13 @@ export default function Example() {
                             leaveTo="transform opacity-0 scale-95"
                           >
                             <div className="absolute z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                              {categories.map((category) => (
+                              {categories.map((category: any) => (
                                 <a
                                   key={category.id}
                                   href={`/dashboard/catalog/${category.id}`}
-                                  className={classNames(
+                                  className={
                                     "block px-4 py-2 text-sm text-gray-700"
-                                  )}
+                                  }
                                 >
                                   {category.title}
                                 </a>

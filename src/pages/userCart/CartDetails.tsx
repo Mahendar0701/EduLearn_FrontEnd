@@ -1,9 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+interface Course {
+  title: string;
+  description: string;
+  image: string;
+  level: "Beginner" | "Intermediate" | "Advanced";
+  price: number;
+  rating: number;
+  duration: number;
+}
+
 export default function CartDetails() {
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const authToken = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -18,11 +29,13 @@ export default function CartDetails() {
           }
         );
 
-        const courseIds = response.data.map((item) => item.course);
+        const courseIds = response.data.map(
+          (item: { course: any }) => item.course
+        );
 
         console.log("courseIds", courseIds);
 
-        const courseDetailsPromises = courseIds.map((id) =>
+        const courseDetailsPromises = courseIds.map((id: any) =>
           axios.get(`http://127.0.0.1:8000/api/courses/${id}/`)
         );
 

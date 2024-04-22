@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
-import JoditEditor from "jodit-react";
-import { Fragment, useState, useRef } from "react";
+// import JoditEditor from "jodit-react";
+import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
@@ -19,20 +21,29 @@ type EditFormInputs = {
   video_link: string;
   instructorId: number;
 };
+type ModuleType = {
+  course: string;
+  title: string;
+  description: string;
+  order: number;
+  image_link: string;
+  video_link: string;
+  instructorId: number;
+};
 const ModuleEditForm: React.FC<{
   module: ModuleType;
-  moduleId: string;
-  courseId: string;
-}> = ({ module, moduleId, courseId }) => {
+  moduleId: ModuleType;
+  courseId: any;
+}> = ({ module, courseId }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { courseID, moduleID, lessonID } = useParams();
-  const editor = useRef(null);
-  const [description, setDescription] = useState("");
+  const { courseID, moduleID } = useParams();
+  // const editor = useRef(null);
+  // const [description, setDescription] = useState("");
   const authToken = localStorage.getItem("authToken");
   const {
     register,
     handleSubmit,
-    setValue,
+    // setValue,
     formState: { errors },
   } = useForm<EditFormInputs>({
     defaultValues: {
@@ -46,13 +57,7 @@ const ModuleEditForm: React.FC<{
   });
 
   //   const { lessonId } = useParams<{ lessonId: string }>();
-  function getCookie(name) {
-    const cookieValue = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith(name + "="));
 
-    return cookieValue ? cookieValue.split("=")[1] : null;
-  }
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -60,7 +65,7 @@ const ModuleEditForm: React.FC<{
     setIsOpen(true);
   };
 
-  const csrfToken = getCookie("csrftoken");
+  // const csrfToken = getCookie("csrftoken");
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<EditFormInputs> = async (data) => {
@@ -86,7 +91,7 @@ const ModuleEditForm: React.FC<{
       setError(null);
 
       // Perform any necessary navigation or state updates after successful sign-in
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "Module creation failed:",
         error.response?.data || error.message
@@ -214,7 +219,7 @@ const ModuleEditForm: React.FC<{
                         </label>
                         <textarea
                           id="description"
-                          type="textbox"
+                          // type="textbox"
                           placeholder="Enter description..."
                           autoFocus
                           {...register("description")}
@@ -222,13 +227,6 @@ const ModuleEditForm: React.FC<{
                             errors.video_link ? "border-red-500" : ""
                           }`}
                         />
-                        {/* <JoditEditor
-                          ref={editor}
-                          value={module.description}
-                          onChange={(newContent) => setDescription(newContent)}
-                        />
-
-                        {description} */}
                       </div>
                       {error && (
                         <div className="text-red-500 font-bold text-sm my-2">

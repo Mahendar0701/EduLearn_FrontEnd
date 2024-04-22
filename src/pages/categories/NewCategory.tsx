@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 // import JoditEditor from "jodit-react";
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface CategoryData {
@@ -30,7 +31,7 @@ const CreateCategoryForm = () => {
     const { title } = data;
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://127.0.0.1:8000/api/categories/",
         {
           title,
@@ -50,7 +51,7 @@ const CreateCategoryForm = () => {
       setError(null);
 
       // Perform any necessary navigation or state updates after successful sign-in
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "Category creation failed:",
         error.response?.data || error.message

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
-import JoditEditor from "jodit-react";
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
@@ -19,8 +19,8 @@ const NewModule = () => {
   // Next, I'll add a new state to handle errors.
   const [error, setError] = useState<string | null>(null);
 
-  const editor = useRef(null);
-  const [description, setDescription] = useState("");
+  // const editor = useRef(null);
+  // const [description, setDescription] = useState("");
 
   const authToken = localStorage.getItem("authToken");
   const { courseID } = useParams();
@@ -45,7 +45,7 @@ const NewModule = () => {
     // console.log("module description", data.description);
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://127.0.0.1:8000/api/courses/${courseID}/modules/`,
         {
           title,
@@ -71,7 +71,7 @@ const NewModule = () => {
       setError(null);
 
       // Perform any necessary navigation or state updates after successful sign-in
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "module creation failed:",
         error.response?.data || error.message
@@ -199,7 +199,6 @@ const NewModule = () => {
                         </label>
                         <textarea
                           id="description"
-                          type="textbox"
                           placeholder="Enter description..."
                           autoFocus
                           {...register("description")}

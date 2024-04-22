@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
 import { fetchCourses } from "../../context/courses/action";
 import {
@@ -26,9 +27,11 @@ export default function CategoryCourses() {
     return <span>{errorMessage}</span>;
   }
 
-  const filteredCourses = courses.filter((course) => {
-    return course.category == catalogID;
-  });
+  const filteredCourses = courses.filter(
+    (course: { category: string | undefined }) => {
+      return course.category == catalogID;
+    }
+  );
 
   console.log("filteredCourses", filteredCourses);
 

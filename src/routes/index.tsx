@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React from "react";
 import { Navigate, createBrowserRouter } from "react-router-dom";
 
@@ -7,9 +8,7 @@ import Logout from "../pages/logout";
 import Dashboard from "../pages/dashboard";
 import CourseDetailsIndex from "../pages/courseDetails";
 import AccountLayout from "../layouts/account";
-import CourseContainer from "../pages/courses/CourseContainer";
-import Courses from "../pages/courses";
-import { Children, Suspense } from "react";
+import { Suspense } from "react";
 // import CourseDashboard from "../pages/courseDashboard";
 // import CourseDashboardIndex from "../pages/courseDashboard";
 const CourseDashboardIndex = React.lazy(

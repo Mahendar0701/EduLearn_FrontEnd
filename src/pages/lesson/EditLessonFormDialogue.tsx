@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import JoditEditor from "jodit-react";
@@ -10,7 +12,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 // // Then I'll import the useProjectsDispatch hook from projects context
 // import { useProjectsDispatch } from "../../context/projects/context";
 type EditFormInputs = {
+  id: number;
   module: string;
+  course: string;
   title: string;
   content: string;
   order: number;
@@ -19,11 +23,11 @@ type EditFormInputs = {
   instructorId: number;
 };
 const LessonEditForm: React.FC<{
-  lesson: LessonType;
+  lesson: EditFormInputs;
   lessonId: number;
-  courseId: string;
-  moduleId: string;
-}> = ({ lesson, lessonId, courseId, moduleId }) => {
+  courseId: any;
+  moduleId: any;
+}> = ({ lesson, courseId, moduleId }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Next, I'll add a new state to handle errors.
@@ -37,7 +41,7 @@ const LessonEditForm: React.FC<{
   const {
     register,
     handleSubmit,
-    setValue,
+
     formState: { errors },
   } = useForm<EditFormInputs>({
     defaultValues: {
@@ -55,7 +59,7 @@ const LessonEditForm: React.FC<{
   }, [lesson.content]);
 
   //   const { lessonId } = useParams<{ lessonId: string }>();
-  function getCookie(name) {
+  function getCookie(name: string) {
     const cookieValue = document.cookie
       .split("; ")
       .find((row) => row.startsWith(name + "="));
@@ -100,7 +104,7 @@ const LessonEditForm: React.FC<{
       setError(null);
 
       // Perform any necessary navigation or state updates after successful sign-in
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         "Lesson creation failed:",
         error.response?.data || error.message
@@ -109,14 +113,14 @@ const LessonEditForm: React.FC<{
     }
   };
 
-  let isCreator = false;
-  const userDataString = localStorage.getItem("userData");
+  // let isCreator = false;
+  const userDataString = localStorage.getItem("userData") || "";
   const userData = JSON.parse(userDataString);
   const userId = userData.user_id;
 
-  if (userId && lesson.instructorId == userId) {
-    isCreator = true;
-  }
+  // if (userId && lesson.instructorId == userId) {
+  //   isCreator = true;
+  // }
 
   console.log("instr id", lesson.instructorId);
   console.log("user id", userId);

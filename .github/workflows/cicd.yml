@@ -24,6 +24,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build
+        run: npm run build
+
+      - name: Webpack
+        run: npx webpack
+
       - name: run test
         run: npm test
 

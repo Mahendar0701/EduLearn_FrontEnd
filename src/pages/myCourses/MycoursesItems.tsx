@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Mycourses.tsx
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCourseState } from "../../context/courses/context";
 import { Link } from "react-router-dom";
@@ -40,9 +42,9 @@ const MycoursesItems = () => {
 
   // Filter enrolled courses from the complete courses list
   const enrolledCoursesIds = enrolledCourses.map(
-    (enrollment) => enrollment.course
+    (enrollment: any) => enrollment.course
   );
-  const filteredCourses = courses.filter((course) =>
+  const filteredCourses = courses.filter((course: any) =>
     enrolledCoursesIds.includes(course.id)
   );
 

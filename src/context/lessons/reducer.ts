@@ -1,7 +1,11 @@
 interface Lesson {
   title: string;
   content: string;
+  video_link: string;
+  image_link: string;
+  description: string;
   order: number;
+  instructorId: number;
 }
 
 // Now, I'll rename the interface in the `ProjectList` component from `State`

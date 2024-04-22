@@ -27,7 +27,7 @@ export const fetchLessons = async (
   // dispatch: ArticleDispatch,
   dispatch: any,
   courseID: string,
-  moduleID: string
+  moduleID: any
   // articles: Article
 ) => {
   //   const token = localStorage.getItem("authToken") ?? "";

@@ -29,7 +29,7 @@ export const fetchModules = async (
   courseID: string
   // articles: Article
 ) => {
-  const token = localStorage.getItem("authToken") ?? "";
+  // const token = localStorage.getItem("authToken") ?? "";
 
   try {
     dispatch({ type: "FETCH_MODULES_REQUEST" });
