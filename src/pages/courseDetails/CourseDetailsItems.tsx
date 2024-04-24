@@ -131,8 +131,20 @@ export default function CourseDetails() {
   }
 
   let isCreator = false;
-  const userDataString = localStorage.getItem("userData") || "";
-  const userData = JSON.parse(userDataString) || "";
+  // const userDataString = localStorage.getItem("userData") || "";
+  // const userData = JSON.parse(userDataString) || "";
+
+  let userData = null;
+  const userDataString = localStorage.getItem("userData");
+
+  if (userDataString) {
+    try {
+      userData = JSON.parse(userDataString);
+    } catch (error) {
+      console.error("Error parsing userData:", error);
+    }
+  }
+
   let userId = null;
 
   if (userData) {
@@ -161,7 +173,12 @@ export default function CourseDetails() {
 
             <div className="col-start-4 col-span-3">
               <div className="flex justify-between">
-                <h2 className="text-4xl font-bold mb-4">{course.title}</h2>
+                <h2
+                  data-testid="course-title"
+                  className="text-4xl font-bold mb-4"
+                >
+                  {course.title}
+                </h2>
               </div>
 
               <p className="text-sm mb-2"> {course.category_name}</p>
@@ -169,9 +186,11 @@ export default function CourseDetails() {
                 {course.description}
               </p>
               <div className="flex gap-10 mx-20">
-                <h3>Rating {course.rating}/5</h3>
-                <h3>Level {course.level}</h3>
-                <h3>{course.enrolledStudents}+ Learners</h3>
+                <h3 data-testid="course-rating">Rating {course.rating}/5</h3>
+                <h3 data-testid="course-level">Level {course.level}</h3>
+                <h3 data-testid="course-learners">
+                  {course.enrolledStudents}+ Learners
+                </h3>
               </div>
               <div className="flex mx-auto">
                 {isEnrolled ? (
@@ -184,6 +203,7 @@ export default function CourseDetails() {
                 ) : isAuthenticated ? (
                   <div className="flex gap-4 mx-6">
                     <button
+                      id="enroll-now"
                       className="bg-violet-900 text-white hover:bg-violet-950  px-20 py-2 my-5 rounded-md items-center mx-auto"
                       onClick={enrollHandler}
                     >

@@ -32,13 +32,13 @@ const App = () => {
   return (
     <div className={`h-full w-full  `}>
       <CourseProvider>
-        <CourseDetailsProvider>
-          <ModuleProvider>
-            <LessonProvider>
+        <ModuleProvider>
+          <LessonProvider>
+            <CourseDetailsProvider>
               <RouterProvider router={router} />
-            </LessonProvider>
-          </ModuleProvider>
-        </CourseDetailsProvider>
+            </CourseDetailsProvider>
+          </LessonProvider>
+        </ModuleProvider>
       </CourseProvider>
     </div>
   );

@@ -59,7 +59,10 @@ const SignupForm = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="userName"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Your Name:
           </label>
           <input
@@ -74,7 +77,10 @@ const SignupForm = () => {
           />
         </div>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="userEmail"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Email:
           </label>
           <input
@@ -89,7 +95,10 @@ const SignupForm = () => {
           />
         </div>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="userPassword"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Password:
           </label>
           <input
@@ -104,10 +113,14 @@ const SignupForm = () => {
           />
         </div>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="role"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Role:
           </label>
           <select
+            id="role"
             {...register("role", { required: true })}
             className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
               errors.role ? "border-red-500" : ""

@@ -57,7 +57,10 @@ const SigninForm = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="userEmail"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Email:
           </label>
           <input
@@ -72,7 +75,10 @@ const SigninForm = () => {
           />
         </div>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="userPassword"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Password:
           </label>
           <input

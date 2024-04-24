@@ -9,7 +9,8 @@
     "builds": "tsc && npm run generate-build-mea && npm run build:react ",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "npm test -- --coverage --watchAll"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
