@@ -4,8 +4,8 @@ import axios from "axios";
 // import JoditEditor from "jodit-react";
 import { Fragment, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 interface CourseData {
   id: number;
@@ -147,9 +147,9 @@ const CourseEditForm: React.FC<{
       );
 
       console.log("course updated successfully", response.data);
-      toast.success("Course updated successfully!", {
-        autoClose: 3000,
-      });
+      // toast.success("Course updated successfully!", {
+      //   autoClose: 3000,
+      // });
 
       setIsOpen(false);
 
@@ -158,9 +158,9 @@ const CourseEditForm: React.FC<{
 
       // Perform any necessary navigation or state updates after successful sign-in
     } catch (error: any) {
-      toast.error("Course updation failed. Please try again.", {
-        autoClose: 3000,
-      });
+      // toast.error("Course updation failed. Please try again.", {
+      //   autoClose: 3000,
+      // });
       console.error(
         "course edit creation failed:",
         error.response?.data || error.message

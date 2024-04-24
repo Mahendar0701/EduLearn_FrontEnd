@@ -4,15 +4,22 @@ import Courses from "../courses";
 import CreateCourseForm from "../courses/NewCourse";
 import CreateCategoryForm from "../categories/NewCategory";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import { useTranslation } from "react-i18next";
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
   let isInstructor = false;
-  const userDataString = localStorage.getItem("userData") || "";
-  const userData = JSON.parse(userDataString);
+  // const userDataString = localStorage.getItem("userData") || "";
+  // const userData = JSON.parse(userDataString);
+  let userData = null;
+
+  const userDataString = localStorage.getItem("userData");
+  if (userDataString) {
+    userData = JSON.parse(userDataString);
+  }
+
   let role = null;
 
   if (userData) {
@@ -145,7 +152,7 @@ const Dashboard: React.FC = () => {
               and empower learners.
             </p>
             {/* Create Course Form */}
-            <CreateCourseForm />
+            <CreateCourseForm data-testid="create-course-form" />
           </div>
         </div>
       )}
