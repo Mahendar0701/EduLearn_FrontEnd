@@ -152,7 +152,7 @@ const Dashboard: React.FC = () => {
               and empower learners.
             </p>
             {/* Create Course Form */}
-            <CreateCourseForm data-testid="create-course-form" />
+            {/* <CreateCourseForm  /> */}
           </div>
         </div>
       )}
@@ -171,7 +171,7 @@ const Dashboard: React.FC = () => {
               experience.
             </p>
             {/* Create Category Form */}
-            <CreateCategoryForm />
+            {/* <CreateCategoryForm /> */}
           </div>
         </div>
       )}
