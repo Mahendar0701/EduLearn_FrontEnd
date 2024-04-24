@@ -26,10 +26,13 @@ const SigninForm = () => {
     const { email, password } = data;
 
     try {
-      const response = await axios.post(`${API_ENDPOINT}/api/signin/`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `https://edulearn-backend.onrender.com/api/signin/`,
+        {
+          email,
+          password,
+        }
+      );
 
       // if (!response.data.auth_token) {
       //   throw new Error("Sign-in failed");
