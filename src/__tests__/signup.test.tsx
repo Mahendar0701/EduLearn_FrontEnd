@@ -25,7 +25,7 @@ describe("SignupForm", () => {
       },
     });
 
-    const { getByLabelText, getByText, getByRole } = render(
+    const { getByLabelText, getByText } = render(
       <Router>
         <SignupForm />
       </Router>

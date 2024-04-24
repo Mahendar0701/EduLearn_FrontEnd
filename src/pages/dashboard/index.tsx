@@ -183,7 +183,9 @@ const Dashboard: React.FC = () => {
             Featured Courses
           </h2>
           {/* Course Cards (Carousel or Grid) */}
-          <div className="gap-8">{/* <Courses /> */} courses</div>
+          <div className="gap-8">
+            <Courses />{" "}
+          </div>
         </div>
       </div>
 
