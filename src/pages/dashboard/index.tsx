@@ -1,8 +1,8 @@
 // Dashboard.tsx
 import React, { useRef } from "react";
 import Courses from "../courses";
-import CreateCourseForm from "../courses/NewCourse";
-import CreateCategoryForm from "../categories/NewCategory";
+// import CreateCourseForm from "../courses/NewCourse";
+// import CreateCategoryForm from "../categories/NewCategory";
 
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
