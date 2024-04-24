@@ -2,7 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API_ENDPOINT } from "../../config/constants";
+// import { API_ENDPOINT } from "../../config/constants";
 
 type Inputs = {
   username: string;
