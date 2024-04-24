@@ -7,6 +7,7 @@ import axios from "axios";
 import { useCourseState } from "../../context/courses/context";
 // import { Link } from "react-router-dom";
 import DonutGraph from "../dashboard/DonutGraph";
+import { API_ENDPOINT } from "../../config/constants";
 
 const ReportItems = () => {
   const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
@@ -25,7 +26,7 @@ const ReportItems = () => {
   useEffect(() => {
     // Fetch enrolled courses when the component mounts
     axios
-      .get(`http://127.0.0.1:8000/api/user/enrolled-courses/`, {
+      .get(`${API_ENDPOINT}/api/user/enrolled-courses/`, {
         headers: {
           Authorization: `Token ${authToken}`,
         },
@@ -47,7 +48,7 @@ const ReportItems = () => {
     // Check if the lesson is marked as complete
 
     axios
-      .get(`http://127.0.0.1:8000/api/courses/${courseID}/completed-lessons/`, {
+      .get(`${API_ENDPOINT}/api/courses/${courseID}/completed-lessons/`, {
         headers: {
           Authorization: `Token ${authToken}`,
         },
@@ -71,7 +72,7 @@ const ReportItems = () => {
     // Check if the lesson is marked as complete
 
     axios
-      .get(`http://127.0.0.1:8000/api/courses/${courseID}/modules/`, {
+      .get(`${API_ENDPOINT}/api/courses/${courseID}/modules/`, {
         headers: {
           Authorization: `Token ${authToken}`,
         },

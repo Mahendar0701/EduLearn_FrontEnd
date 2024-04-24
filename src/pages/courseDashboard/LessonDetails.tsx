@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import LessonEditForm from "../lesson/EditLessonFormDialogue";
+import { API_ENDPOINT } from "../../config/constants";
 
 type LessonType = {
   id: number;
@@ -36,7 +37,7 @@ const LessonDetails = () => {
     // Fetch lesson details based on courseID, moduleID, and lessonID
     axios
       .get(
-        `http://127.0.0.1:8000/api/courses/${courseID}/modules/${moduleID}/lessons/`,
+        `${API_ENDPOINT}/api/courses/${courseID}/modules/${moduleID}/lessons/`,
         {
           headers: {
             Authorization: `Token ${authToken}`,
@@ -127,7 +128,7 @@ const LessonDetails = () => {
 
     axios
       .post(
-        `http://127.0.0.1:8000/api/courses/${courseID}/modules/${moduleID}/lessons/${lessonID}/complete/`,
+        `${API_ENDPOINT}/api/courses/${courseID}/modules/${moduleID}/lessons/${lessonID}/complete/`,
         {},
         {
           headers: {
@@ -160,7 +161,7 @@ const LessonDetails = () => {
   const handleLessonDelete = () => {
     axios
       .delete(
-        `http://127.0.0.1:8000/api/courses/${courseID}/modules/${moduleID}/lessons/${lessonID}/`,
+        `${API_ENDPOINT}/api/courses/${courseID}/modules/${moduleID}/lessons/${lessonID}/`,
         {
           headers: {
             Authorization: `Token ${authToken}`,

@@ -5,6 +5,16 @@
 
 /** @type {import('jest').Config} */
 const config = {
+  extensionsToTreatAsEsm: [".ts", ".tsx"],
+  testMatch: ["**/*.test.{ts,tsx}"],
+  transform: {
+    "^.+\\.tsx?$": "ts-jest",
+  },
+  globals: {
+    "ts-jest": {
+      useESM: true,
+    },
+  },
   silent: true,
   // All imported modules in your tests should be mocked automatically
   // automock: false,

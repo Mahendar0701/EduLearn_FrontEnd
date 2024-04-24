@@ -6,6 +6,7 @@ import { Fragment, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createCourse } from "../../context/courses/action";
 import { useCourseDispatch } from "../../context/courses/context";
+import { API_ENDPOINT } from "../../config/constants";
 // import { useDispatch } from "react-redux";
 
 interface CourseData {
@@ -52,14 +53,11 @@ const CreateCourseForm = () => {
     const fetchCategories = async () => {
       try {
         // const authToken = localStorage.getItem("authToken");
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/categories/",
-          {
-            headers: {
-              Authorization: `Token ${authToken}`,
-            },
-          }
-        );
+        const response = await axios.get(`${API_ENDPOINT}/api/categories/`, {
+          headers: {
+            Authorization: `Token ${authToken}`,
+          },
+        });
         setCategories(response.data);
         console.log(response.data);
       } catch (error: any) {

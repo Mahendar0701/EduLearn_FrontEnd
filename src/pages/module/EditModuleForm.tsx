@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 // import JoditEditor from "jodit-react";
 import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -74,7 +75,7 @@ const ModuleEditForm: React.FC<{
     data.course = courseId;
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8000/api/courses/${courseID}/modules/${moduleID}/`,
+        `${API_ENDPOINT}/api/courses/${courseID}/modules/${moduleID}/`,
         data,
         {
           headers: {

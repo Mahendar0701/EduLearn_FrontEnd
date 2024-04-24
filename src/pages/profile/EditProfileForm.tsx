@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 
 type Inputs = {
   username: string;
@@ -118,7 +119,7 @@ const ProfileEditForm = () => {
       }
 
       const response = await axios.put(
-        "http://127.0.0.1:8000/api/user/profile/edit/",
+        `${API_ENDPOINT}/api/user/profile/edit/`,
         data,
         {
           headers: {

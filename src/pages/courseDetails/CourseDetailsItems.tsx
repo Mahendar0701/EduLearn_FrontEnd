@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 import CourseEditForm from "./CourseEditForm";
+import { API_ENDPOINT } from "../../config/constants";
 
 export default function CourseDetails() {
   const [selectedModule, setSelectedModule] = useState(null);
@@ -34,7 +35,7 @@ export default function CourseDetails() {
     const fetchEnrollmentStatus = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/check-enrollment/${course.id}/`,
+          `${API_ENDPOINT}/api/check-enrollment/${course.id}/`,
           {
             headers: {
               Authorization: `Token ${authToken}`,
@@ -56,7 +57,7 @@ export default function CourseDetails() {
   const enrollHandler = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/courses/${courseId}/enroll/`,
+        `${API_ENDPOINT}/api/courses/${courseId}/enroll/`,
         {},
         {
           headers: {
@@ -76,7 +77,7 @@ export default function CourseDetails() {
   const cartHandler = async () => {
     try {
       const response = axios.post(
-        `http://127.0.0.1:8000/api/courses/${courseId}/add-to-cart/`,
+        `${API_ENDPOINT}/api/courses/${courseId}/add-to-cart/`,
         {},
         {
           headers: {

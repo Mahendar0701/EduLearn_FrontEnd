@@ -5,6 +5,7 @@ import axios from "axios";
 // import JoditEditor from "jodit-react";
 import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { API_ENDPOINT } from "../../config/constants";
 
 interface CourseData {
   title: string;
@@ -64,7 +65,7 @@ const EditCourseForm = () => {
     } = data;
 
     try {
-      await axios.post("http://127.0.0.1:8000/api/courses/", {
+      await axios.post(`${API_ENDPOINT}/api/courses/`, {
         title,
         description,
         image,

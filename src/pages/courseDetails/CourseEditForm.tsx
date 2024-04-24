@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 // import JoditEditor from "jodit-react";
 import { Fragment, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -41,14 +42,11 @@ const CourseEditForm: React.FC<{
     const fetchCategories = async () => {
       try {
         const authToken = localStorage.getItem("authToken");
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/categories/",
-          {
-            headers: {
-              Authorization: `Token ${authToken}`,
-            },
-          }
-        );
+        const response = await axios.get(`${API_ENDPOINT}/api/categories/`, {
+          headers: {
+            Authorization: `Token ${authToken}`,
+          },
+        });
         setCategories(response.data);
         console.log(response.data);
       } catch (error: any) {
@@ -107,7 +105,7 @@ const CourseEditForm: React.FC<{
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8000/api/courses/${course.id}/`,
+        `${API_ENDPOINT}/api/courses/${course.id}/`,
         {
           headers: {
             "X-CSRFToken": csrfToken,
@@ -135,7 +133,7 @@ const CourseEditForm: React.FC<{
     console.log("course edit data", data);
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8000/api/courses/${course.id}/`,
+        `${API_ENDPOINT}/api/courses/${course.id}/`,
         data,
         {
           headers: {

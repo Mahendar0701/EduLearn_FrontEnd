@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 import JoditEditor from "jodit-react";
 import { Fragment, useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -66,7 +67,7 @@ const NewLesson = () => {
 
     try {
       await axios.post(
-        `http://127.0.0.1:8000/api/courses/${courseID}/modules/${moduleID}/lessons/`,
+        `${API_ENDPOINT}/api/courses/${courseID}/modules/${moduleID}/lessons/`,
         {
           title,
           content,

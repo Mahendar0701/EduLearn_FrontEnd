@@ -1,6 +1,7 @@
 // import axios from "axios";
 
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 
 export const getCourseDetails = async (
   // dispatch: ArticleDispatch,
@@ -14,7 +15,7 @@ export const getCourseDetails = async (
   try {
     dispatch({ type: "FETCH_COURSESDetails_REQUEST" });
     const response = await axios.get(
-      `http://127.0.0.1:8000/api/courses/${courseID}/`,
+      `${API_ENDPOINT}/api/courses/${courseID}/`,
       {
         headers: {
           "Content-Type": "application/json",

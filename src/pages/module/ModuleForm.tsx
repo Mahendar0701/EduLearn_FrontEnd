@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -46,7 +47,7 @@ const NewModule = () => {
 
     try {
       await axios.post(
-        `http://127.0.0.1:8000/api/courses/${courseID}/modules/`,
+        `${API_ENDPOINT}/api/courses/${courseID}/modules/`,
         {
           title,
           description,

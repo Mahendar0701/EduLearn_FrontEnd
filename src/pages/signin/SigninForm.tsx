@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_ENDPOINT } from "../../config/constants";
 
 type Inputs = {
   email: string;
@@ -25,7 +26,7 @@ const SigninForm = () => {
     const { email, password } = data;
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/signin/", {
+      const response = await axios.post(`${API_ENDPOINT}/api/signin/`, {
         email,
         password,
       });

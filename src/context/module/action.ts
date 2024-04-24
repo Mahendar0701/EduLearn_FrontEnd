@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 
 export const fetchCoursess = async (dispatch: any) => {
   const token = localStorage.getItem("authToken") ?? "";
   try {
     dispatch({ type: "FETCH_COURSES_REQUEST" });
-    const response = await axios.get(`http://127.0.0.1:8000/api/courses/`, {
+    const response = await axios.get(`${API_ENDPOINT}/api/courses/`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -34,7 +35,7 @@ export const fetchModules = async (
   try {
     dispatch({ type: "FETCH_MODULES_REQUEST" });
     const response = await fetch(
-      `http://127.0.0.1:8000/api/courses/${courseID}/modules/`,
+      `${API_ENDPOINT}/api/courses/${courseID}/modules/`,
       {
         method: "GET",
         headers: {

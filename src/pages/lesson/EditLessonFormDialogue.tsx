@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 import JoditEditor from "jodit-react";
 import { Fragment, useState, useRef, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -85,7 +86,7 @@ const LessonEditForm: React.FC<{
     data.content = content;
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8000/api/courses/${courseId}/modules/${moduleId}/lessons/${lesson.id}/`,
+        `${API_ENDPOINT}/api/courses/${courseId}/modules/${moduleId}/lessons/${lesson.id}/`,
         data,
         {
           headers: {

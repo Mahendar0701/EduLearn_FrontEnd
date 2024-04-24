@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCourseState } from "../../context/courses/context";
 import { Link } from "react-router-dom";
+import { API_ENDPOINT } from "../../config/constants";
 
 const MycoursesItems = () => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
@@ -19,7 +20,7 @@ const MycoursesItems = () => {
   useEffect(() => {
     // Fetch enrolled courses when the component mounts
     axios
-      .get(`http://127.0.0.1:8000/api/user/enrolled-courses/`, {
+      .get(`${API_ENDPOINT}/api/user/enrolled-courses/`, {
         headers: {
           Authorization: `Token ${authToken}`,
         },

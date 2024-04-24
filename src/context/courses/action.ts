@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+import { API_ENDPOINT } from "../../config/constants";
 
 export const createCourse = async (dispatch: any, courseData: any) => {
   const token = localStorage.getItem("authToken") ?? "";
@@ -7,7 +8,7 @@ export const createCourse = async (dispatch: any, courseData: any) => {
   try {
     dispatch({ type: "CREATE_COURSE_REQUEST" });
     const response = await axios.post(
-      `http://127.0.0.1:8000/api/courses/`,
+      `${API_ENDPOINT}/api/courses/`,
       courseData,
       {
         headers: {
@@ -36,7 +37,7 @@ export const fetchCourses = async (dispatch: any) => {
   const token = localStorage.getItem("authToken") ?? "";
   try {
     dispatch({ type: "FETCH_COURSES_REQUEST" });
-    const response = await axios.get(`http://127.0.0.1:8000/api/courses/`, {
+    const response = await axios.get(`${API_ENDPOINT}/api/courses/`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -65,16 +66,13 @@ export const getArticle = async (
 
   try {
     dispatch({ type: "FETCH_COURSES_REQUEST" });
-    const response = await fetch(
-      `http://127.0.0.1:8000/api/courses/${courseID}/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${API_ENDPOINT}/api/courses/${courseID}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await response.json();
     console.log("get article", data);
 

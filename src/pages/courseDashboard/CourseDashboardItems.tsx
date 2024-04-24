@@ -15,6 +15,7 @@ import ModuleEditForm from "../module/EditModuleForm";
 // import CourseDetails from "../courseDetails/CourseDetailsItems";
 // import Chart from "chart.js/auto";
 import DonutGraph from "../dashboard/DonutGraph";
+import { API_ENDPOINT } from "../../config/constants";
 // import CourseDetails from "../courseDetails";
 // import Rating from "react-rating-stars-component";
 
@@ -129,7 +130,7 @@ export default function CourseDashboard() {
     // Check if the lesson is marked as complete
 
     axios
-      .get(`http://127.0.0.1:8000/api/courses/${courseID}/completed-lessons/`, {
+      .get(`${API_ENDPOINT}/api/courses/${courseID}/completed-lessons/`, {
         headers: {
           Authorization: `Token ${authToken}`,
         },
@@ -191,14 +192,11 @@ export default function CourseDashboard() {
 
   const handleDeleteModule = () => {
     axios
-      .delete(
-        `http://127.0.0.1:8000/api/courses/${courseID}/modules/${moduleID}/`,
-        {
-          headers: {
-            Authorization: `Token ${authToken}`,
-          },
-        }
-      )
+      .delete(`${API_ENDPOINT}/api/courses/${courseID}/modules/${moduleID}/`, {
+        headers: {
+          Authorization: `Token ${authToken}`,
+        },
+      })
       .then((_response) => {
         console.log("deleted module successfully");
       })

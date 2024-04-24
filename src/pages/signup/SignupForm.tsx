@@ -2,6 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_ENDPOINT } from "../../config/constants";
 
 type Inputs = {
   username: string;
@@ -25,7 +26,7 @@ const SignupForm = () => {
     const { username, email, password, role } = data;
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/signup/", {
+      const response = await axios.post(`${API_ENDPOINT}/api/signup/`, {
         username,
         email,
         password,
