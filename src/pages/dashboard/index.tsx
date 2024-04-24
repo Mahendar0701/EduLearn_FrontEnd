@@ -1,8 +1,8 @@
 // Dashboard.tsx
 import React, { useRef } from "react";
 import Courses from "../courses";
-// import CreateCourseForm from "../courses/NewCourse";
-// import CreateCategoryForm from "../categories/NewCategory";
+import CreateCourseForm from "../courses/NewCourse";
+import CreateCategoryForm from "../categories/NewCategory";
 
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
@@ -152,7 +152,7 @@ const Dashboard: React.FC = () => {
               and empower learners.
             </p>
             {/* Create Course Form */}
-            {/* <CreateCourseForm  /> */}
+            <CreateCourseForm data-testid="create-course-form" />
           </div>
         </div>
       )}
@@ -171,7 +171,7 @@ const Dashboard: React.FC = () => {
               experience.
             </p>
             {/* Create Category Form */}
-            {/* <CreateCategoryForm /> */}
+            <CreateCategoryForm />
           </div>
         </div>
       )}

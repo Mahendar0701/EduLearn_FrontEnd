@@ -48,6 +48,7 @@ const CreateCourseForm = () => {
   >();
 
   const authToken = localStorage.getItem("authToken");
+  console.log(API_ENDPOINT);
 
   useEffect(() => {
     const fetchCategories = async () => {
