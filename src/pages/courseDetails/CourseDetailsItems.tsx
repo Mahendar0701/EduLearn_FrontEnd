@@ -94,7 +94,7 @@ export default function CourseDetails() {
 
   const handleDeleteCourse = () => {
     axios
-      .delete(`http://127.0.0.1:8000/api/courses/${courseId}/`, {
+      .delete(`${API_ENDPOINT}/api/courses/${courseId}/`, {
         headers: {
           Authorization: `Token ${authToken}`,
         },

@@ -10,7 +10,7 @@ export const getCourseDetails = async (
   courseID: string
   // articles: Article
 ) => {
-  const token = localStorage.getItem("authToken") ?? "";
+  // const token = localStorage.getItem("authToken") ?? "";
 
   try {
     dispatch({ type: "FETCH_COURSESDetails_REQUEST" });
@@ -19,7 +19,7 @@ export const getCourseDetails = async (
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       }
     );

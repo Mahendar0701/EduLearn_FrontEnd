@@ -55,9 +55,9 @@ const CreateCourseForm = () => {
       try {
         // const authToken = localStorage.getItem("authToken");
         const response = await axios.get(`${API_ENDPOINT}/api/categories/`, {
-          headers: {
-            Authorization: `Token ${authToken}`,
-          },
+          // headers: {
+          //   Authorization: `Token ${authToken}`,
+          // },
         });
         setCategories(response.data);
         console.log(response.data);

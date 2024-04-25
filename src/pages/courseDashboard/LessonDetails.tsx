@@ -60,7 +60,7 @@ const LessonDetails = () => {
 
     axios
       .get(
-        `http://127.0.0.1:8000/api/courses/${courseID}/modules/${moduleID}/lessons/${lessonID}/complete/`,
+        `${API_ENDPOINT}/api/courses/${courseID}/modules/${moduleID}/lessons/${lessonID}/complete/`,
         {
           headers: {
             Authorization: `Token ${authToken}`,

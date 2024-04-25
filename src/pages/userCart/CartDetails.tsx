@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_ENDPOINT } from "../../config/constants";
 
 interface Course {
   title: string;
@@ -36,7 +37,7 @@ export default function CartDetails() {
         console.log("courseIds", courseIds);
 
         const courseDetailsPromises = courseIds.map((id: any) =>
-          axios.get(`http://127.0.0.1:8000/api/courses/${id}/`)
+          axios.get(`${API_ENDPOINT}/api/courses/${id}/`)
         );
 
         const courseDetailsResponses = await Promise.all(courseDetailsPromises);
