@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useCourseDetailsState } from "../../context/course_details/context";
 import { useModuleState } from "../../context/module/context";
 import { Link } from "react-router-dom";
