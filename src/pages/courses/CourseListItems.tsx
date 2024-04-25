@@ -38,8 +38,8 @@ export default function CourseListItems() {
         <div>Loading...</div>
       ) : (
         <div className="flex flex-wrap gap-3 mx-28">
-          {courseState.courses &&
-            courseState.courses.map((course: any) => (
+          {courses.length > 0 &&
+            courses.map((course: any) => (
               // <div>{course.title}</div>
               <div
                 key={course.id}
