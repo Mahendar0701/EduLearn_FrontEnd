@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import CourseListItems from "./CourseListItems";
 // import CourseList from "./CourseList";
