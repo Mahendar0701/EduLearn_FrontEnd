@@ -60,7 +60,7 @@ export default function CourseDetails() {
   const enrollHandler = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000//api/courses/${courseId}/enroll/`,
+        `${API_ENDPOINT}/api/courses/${courseId}/enroll/`,
         {},
         {
           headers: {
