@@ -1,26 +1,42 @@
 {
   "translation": {
-    "Welcome": "Welcome",
+    "Welcome to EduLearn": "Welcome to EduLearn",
     "Cancel": "Cancel",
     "Comments": "Comments",
     "Create": "Create",
     "Delete": "Delete",
     "Description": "Description",
-
+    "Details": "Details",
+    "Done": "Done",
+    "In progress": "In progress",
     "New": "New",
-    "Pending": "Pending",
     "Profile": "Profile",
-
-    "Signin": "Sign In",
-    "Signup": "Sign Up",
+    "Signin": "Signin",
+    "Signup": "Signup",
     "Submit": "Submit",
-
     "Title": "Title",
     "Update": "Update",
-
+    "Name": "Name",
     "Loading...": "Loading...",
     "Username": "Username",
     "Password": "Password",
-    "PageNotFound": "Page Not Found"
+    "Page Not Found": "Page Not Found",
+    "Empowering Education, Inspiring Minds": "Empowering Education, Inspiring Minds",
+    "Interactive Learning": "Interactive Learning",
+    "Engage with immersive content and interactive quizzes.": "Engage with immersive content and interactive quizzes.",
+    "Expert Instructors": "Expert Instructors",
+    "Learn from industry experts and experienced educators.": "Learn from industry experts and experienced educators.",
+    "Personalized Learning Paths": "Personalized Learning Paths",
+    "Tailored courses to match your learning pace and style.": "Tailored courses to match your learning pace and style.",
+    "Community Support": "Community Support",
+    "Connect with peers, discuss topics, and collaborate on projects.": "Connect with peers, discuss topics, and collaborate on projects.",
+    "Create New Course": "Create New Course",
+    "As an instructor, you have the opportunity to share your knowledge and expertise with our community. Create a new course to inspire and empower learners.": "As an instructor, you have the opportunity to share your knowledge and expertise with our community. Create a new course to inspire and empower learners.",
+    "Create New Category": "Create New Category",
+    "Organize your courses by creating new categories. This helps learners discover relevant content and enhances their learning experience.": "Organize your courses by creating new categories. This helps learners discover relevant content and enhances their learning experience.",
+    "Featured Courses": "Featured Courses",
+    "What Our Users Say": "What Our Users Say",
+    "EduLearn has transformed the way I learn. The interactive courses and supportive community have helped me achieve my goals!": "EduLearn has transformed the way I learn. The interactive courses and supportive community have helped me achieve my goals!",
+    "Sign Up Now": "Sign Up Now"
   }
 }

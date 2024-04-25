@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import ErrorBoundary from "../../components/ErrorBoundary";
-import CourseListItems from "./CourseListItems";
+import React from "react";
+// import CourseListItems from "./CourseListItems";
 // import CourseList from "./CourseList";
-// const CourseList = React.lazy(() => import("./CourseList"));
+const CourseList = React.lazy(() => import("./CourseList"));
 
 const Courses = () => {
   return (
@@ -13,8 +14,8 @@ const Courses = () => {
           <Suspense
             fallback={<div className="suspense-loading">Loading....</div>}
           >
-            {/* <CourseList /> */}
-            <CourseListItems />
+            <CourseList />
+            {/* <CourseListItems /> */}
           </Suspense>
         </ErrorBoundary>
       </div>

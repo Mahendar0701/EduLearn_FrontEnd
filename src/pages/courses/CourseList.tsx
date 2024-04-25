@@ -5,6 +5,7 @@ import CourseListItems from "./CourseListItems";
 
 export default function CourseList() {
   const dispatchCourse = useCourseDispatch();
+  console.log("..list");
 
   useEffect(() => {
     fetchCourses(dispatchCourse);

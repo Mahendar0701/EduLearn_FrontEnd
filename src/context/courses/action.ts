@@ -35,6 +35,7 @@ export const createCourse = async (dispatch: any, courseData: any) => {
 
 export const fetchCourses = async (dispatch: any) => {
   // const token = localStorage.getItem("authToken") ?? "";
+  console.log("get course");
   try {
     dispatch({ type: "FETCH_COURSES_REQUEST" });
     const response = await axios.get(`${API_ENDPOINT}/api/courses/`, {
