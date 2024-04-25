@@ -4,6 +4,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { API_ENDPOINT } from "../../config/constants";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
@@ -25,7 +26,7 @@ export default function Example() {
     try {
       // const authToken = localStorage.getItem("authToken");
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/categories/"
+        `${API_ENDPOINT}/api/categories/`
         // {
         //   headers: {
         //     Authorization: `Token ${authToken}`,
