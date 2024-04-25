@@ -255,13 +255,15 @@ export default function CourseDetails() {
               What you will learn in {course.title}
             </h1>
             <div className="flex">
-              {course.syllabus
-                .split(",")
-                .map((item: string, index: React.Key | null | undefined) => (
-                  <p className=" mx-2" key={index}>
-                    → {item.trim()}
-                  </p>
-                ))}
+              {
+                course.syllabus
+                // .split(",")
+                // .map((item: string, index: React.Key | null | undefined) => (
+                //   <p className=" mx-2" key={index}>
+                //     → {item.trim()}
+                //   </p>
+                // ))
+              }
             </div>
           </div>
           <div className="grid grid-cols-9 gap-6">
