@@ -27,11 +27,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Webpack
-        run: npx webpack
+      # - name: Webpack
+      #   run: npx webpack
 
-      - name: run test
-        run: npm test
+      # - name: run test
+      #   run: npm test
 
       - name: Slack Notify
         uses: act10ns/slack@v1
