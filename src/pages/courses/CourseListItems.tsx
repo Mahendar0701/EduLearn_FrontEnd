@@ -40,6 +40,7 @@ export default function CourseListItems() {
       ) : ( */}
       <div className="flex flex-wrap gap-3 mx-28">
         {courses &&
+          Array.isArray(courses) &&
           courses.length > 0 &&
           courses.map((course: any) => (
             // <div>{course.title}</div>
