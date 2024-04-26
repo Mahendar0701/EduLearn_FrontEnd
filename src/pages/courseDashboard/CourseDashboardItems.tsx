@@ -39,7 +39,7 @@ export default function CourseDashboard() {
   const [totalLessons, setTotalLessons] = useState(0);
   // const [lessons, setLessons] = useState([]);
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State for sidebar
+  const [isSidebarOpen, _setIsSidebarOpen] = useState(true); // State for sidebar
   // console.log("selected module", selectedModule);
 
   const navigate = useNavigate();
