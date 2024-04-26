@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_ENDPOINT } from "../../config/constants";
 // import { API_ENDPOINT } from "../../config/constants";
 
 type Inputs = {
@@ -26,13 +27,10 @@ const SigninForm = () => {
     const { email, password } = data;
 
     try {
-      const response = await axios.post(
-        `https://edulearn-backend.onrender.com/api/signin/`,
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${API_ENDPOINT}/api/signin/`, {
+        email,
+        password,
+      });
 
       // if (!response.data.auth_token) {
       //   throw new Error("Sign-in failed");

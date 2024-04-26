@@ -2,6 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_ENDPOINT } from "../../config/constants";
 // import { API_ENDPOINT } from "../../config/constants";
 
 type Inputs = {
@@ -26,15 +27,12 @@ const SignupForm = () => {
     const { username, email, password, role } = data;
 
     try {
-      const response = await axios.post(
-        `https://edulearn-backend.onrender.com/api/signup/`,
-        {
-          username,
-          email,
-          password,
-          role,
-        }
-      );
+      const response = await axios.post(`${API_ENDPOINT}/api/signup/`, {
+        username,
+        email,
+        password,
+        role,
+      });
 
       //   if (!response.data.auth_token) {
       //     throw new Error("Sign-up failed");

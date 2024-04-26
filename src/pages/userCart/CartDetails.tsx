@@ -21,14 +21,11 @@ export default function CartDetails() {
   useEffect(() => {
     const fetchUserCart = async () => {
       try {
-        const response = await axios.get(
-          `http://127.0.0.1:8000/api/user/cart/`,
-          {
-            headers: {
-              Authorization: `Token ${authToken}`,
-            },
-          }
-        );
+        const response = await axios.get(`${API_ENDPOINT}/api/user/cart/`, {
+          headers: {
+            Authorization: `Token ${authToken}`,
+          },
+        });
 
         const courseIds = response.data.map(
           (item: { course: any }) => item.course

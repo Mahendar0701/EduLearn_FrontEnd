@@ -1,6 +1,7 @@
 import { Navigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { API_ENDPOINT } from "../config/constants";
 
 export default function ProtectedEnrolledRoute({
   children,
@@ -16,7 +17,7 @@ export default function ProtectedEnrolledRoute({
     const fetchEnrollmentStatus = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/check-enrollment/${courseID}/`,
+          `${API_ENDPOINT}/api/check-enrollment/${courseID}/`,
           {
             headers: {
               Authorization: `Token ${authToken}`,
