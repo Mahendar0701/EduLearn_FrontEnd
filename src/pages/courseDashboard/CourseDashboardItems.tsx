@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCourseDetailsState } from "../../context/course_details/context";
 import { useModuleState } from "../../context/module/context";
 import { useLessonState } from "../../context/lessons/context";
@@ -37,6 +37,7 @@ export default function CourseDashboard() {
   const [selectedModuleIndex, setSelectedModuleIndex] = useState(1);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [totalLessons, setTotalLessons] = useState(0);
+  const [showProgress, setShowProgress] = useState(false);
   // const [lessons, setLessons] = useState([]);
 
   const [isSidebarOpen, _setIsSidebarOpen] = useState(true); // State for sidebar
@@ -50,16 +51,24 @@ export default function CourseDashboard() {
   const handleModuleClick = (moduleId: any) => {
     // setTotalLessons(lessons.length);
 
-    setSelectedModule((prevModule) => {
-      if (moduleId === prevModule) {
-        return null;
-      } else if (moduleId) {
+    if (moduleId !== selectedModule?.id) {
+      setSelectedModule((prevModule) => {
+        // Update selected module only if it's different from the previously selected module
         return moduleId;
-      } else {
-        return null;
-      }
-      // prevModule === moduleId ? null : moduleId;
-    });
+      });
+      setSelectedLesson(null); // Reset selected lesson when a new module is clicked
+    }
+
+    // setSelectedModule((prevModule) => {
+    //   if (moduleId === prevModule) {
+    //     return null;
+    //   } else if (moduleId) {
+    //     return moduleId;
+    //   } else {
+    //     return null;
+    //   }
+    //   // prevModule === moduleId ? null : moduleId;
+    // });
     setSelectedLesson(null); // Reset selected lesson when a new module is clicked
   };
 
@@ -162,14 +171,40 @@ export default function CourseDashboard() {
     );
   }
 
+  // const handleNextModule = () => {
+  //   if (selectedModuleIndex < modules.length - 1) {
+  //     const nextModuleIndex = selectedModuleIndex + 1;
+  //     setSelectedModuleIndex(nextModuleIndex);
+  //     setSelectedModule(modules[nextModuleIndex]); // Update selectedModule based on the index
+  //     setSelectedLesson(null);
+
+  //     // Navigate to the next module
+  //     const nextModuleId = modules[nextModuleIndex].id;
+  //     navigate(
+  //       `/dashboard/courses/${courseID}/modules/${nextModuleId}/lessons`
+  //     );
+  //   }
+  // };
+
+  // const handlePreviousModule = () => {
+  //   if (selectedModuleIndex > 0) {
+  //     const prevModuleIndex = selectedModuleIndex - 1;
+  //     setSelectedModuleIndex(prevModuleIndex);
+  //     setSelectedModule(modules[prevModuleIndex]); // Update selectedModule based on the index
+  //     setSelectedLesson(null);
+
+  //     // Navigate to the previous module
+  //     const prevModuleId = modules[prevModuleIndex].id;
+  //     navigate(
+  //       `/dashboard/courses/${courseID}/modules/${prevModuleId}/lessons`
+  //     );
+  //   }
+  // };
+
   const handleNextModule = () => {
     if (selectedModuleIndex < modules.length - 1) {
       const nextModuleIndex = selectedModuleIndex + 1;
       setSelectedModuleIndex(nextModuleIndex);
-      setSelectedModule(modules[nextModuleIndex]); // Update selectedModule based on the index
-      setSelectedLesson(null);
-
-      // Navigate to the next module
       const nextModuleId = modules[nextModuleIndex].id;
       navigate(
         `/dashboard/courses/${courseID}/modules/${nextModuleId}/lessons`
@@ -181,10 +216,6 @@ export default function CourseDashboard() {
     if (selectedModuleIndex > 0) {
       const prevModuleIndex = selectedModuleIndex - 1;
       setSelectedModuleIndex(prevModuleIndex);
-      setSelectedModule(modules[prevModuleIndex]); // Update selectedModule based on the index
-      setSelectedLesson(null);
-
-      // Navigate to the previous module
       const prevModuleId = modules[prevModuleIndex].id;
       navigate(
         `/dashboard/courses/${courseID}/modules/${prevModuleId}/lessons`
@@ -255,6 +286,14 @@ export default function CourseDashboard() {
           Course Outline
         </h1>
         {isCreator && <NewModule />}
+        <Link to={`/dashboard/courses/${course.id}/coursedashboard`}>
+          <button
+            className="cursor-pointer w-full pr-5 pl-5 py-4  border bg-purple-100 hover:bg-purple-200"
+            // onClick={() => setShowProgress(showProgress)}
+          >
+            <p className="">My Learning</p>
+          </button>
+        </Link>
         <ul>
           {modules.map((module: any) => (
             <li
@@ -278,9 +317,9 @@ export default function CourseDashboard() {
                   {selectedModule === module ? "▲" : "▼"}
                 </span>
               </div>
-              {selectedModule === module && (
+              {/* {selectedModule === module && (
                 <p className="text-md">{module.description}</p>
-              )}
+              )} */}
             </li>
           ))}
         </ul>
@@ -463,214 +502,4 @@ export default function CourseDashboard() {
       </div>
     </div>
   );
-  // return (
-  //   <div className="flex">
-  //     {/* Sidebar */}
-  //     <div
-  //       className={`w-1/4 p-4 border-r overflow-y-scroll ${
-  //         isSidebarOpen ? "" : "hidden"
-  //       }`}
-  //       style={{ height: "90vh", position: "sticky", top: 0 }}
-  //     >
-  //       <hr />
-  //       <h1 className="text-3xl font-semibold my-2 text-center">
-  //         {t("Course Outline")}
-  //       </h1>
-  //       {isCreator && <NewModule />}
-  //       <ul>
-  //         {modules.map((module: any) => (
-  //           <li
-  //             key={module.id}
-  //             className={`cursor-pointer pr-5 pl-5 py-4 my-1 border ${
-  //               isModuleCompleted(module.id) ? "border-green-500" : ""
-  //             } hover:bg-slate-200 ${
-  //               selectedModule === module ? "bg-slate-200" : "bg-slate-100"
-  //             }`}
-  //             onClick={() => {
-  //               handleModuleClick(module);
-  //               navigate(
-  //                 `/dashboard/courses/${courseID}/modules/${module.id}/lessons`
-  //               );
-  //             }}
-  //           >
-  //             <div className="flex justify-between items-center">
-  //               <h3 className="text-lg font-semibold">{module.title}</h3>
-  //               <span className="text-lg">
-  //                 {selectedModule === module ? "▲" : "▼"}
-  //               </span>
-  //             </div>
-  //             {selectedModule === module && (
-  //               <p className="text-md">{module.description}</p>
-  //             )}
-  //           </li>
-  //         ))}
-  //       </ul>
-  //     </div>
-
-  //     {/* Content Area with Lessons */}
-  //     <div className="w-3/4 p-4 ">
-  //       {selectedModule && moduleID ? (
-  //         <div>
-  //           {selectedLesson && lessonID ? (
-  //             <div className="mr-14">
-  //               {" "}
-  //               {selectedLesson && <LessonDetails />}
-  //             </div>
-  //           ) : (
-  //             <div>
-  //               <div className="flex justify-around">
-  //                 <h2 className="text-center text-2xl font-semibold mb-2">
-  //                   {selectedModule.title}
-  //                 </h2>
-  //                 {isCreator && (
-  //                   <div>
-  //                     <ModuleEditForm
-  //                       module={selectedModule}
-  //                       moduleId={selectedModule}
-  //                       courseId={courseID}
-  //                     />
-  //                     <button
-  //                       className="bg-red-600 hover:bg-red-800 text-white px-3 py-2 rounded-md ml-3"
-  //                       onClick={handleDeleteModule}
-  //                     >
-  //                       {t("Delete Module")}
-  //                     </button>
-  //                   </div>
-  //                 )}
-  //               </div>
-  //               <hr />
-  //               <div
-  //                 className="text-center text-md my-3"
-  //                 dangerouslySetInnerHTML={{
-  //                   __html: selectedModule.description,
-  //                 }}
-  //               />
-  //               <div className="items-center justify-center mx-32 my-10">
-  //                 <ul>
-  //                   {lessons
-  //                     .filter(
-  //                       (lesson: any) => lesson.module === selectedModule.id
-  //                     )
-  //                     .map((lesson: any) => (
-  //                       <li
-  //                         key={lesson.id}
-  //                         className={`cursor-pointer my-5 list-disc ${
-  //                           selectedLesson === lesson.id ? "text-blue-500" : ""
-  //                         }`}
-  //                         onClick={() => {
-  //                           handleLessonClick(lesson.id);
-  //                           navigate(
-  //                             `/dashboard/courses/${courseID}/modules/${selectedModule.id}/lessons/${lesson.id}`
-  //                           );
-  //                         }}
-  //                       >
-  //                         <div className="flex justify-between">
-  //                           <h3 className="text-lg font-semibold">
-  //                             {lesson.title}
-  //                           </h3>
-  //                           {completedLessons &&
-  //                             completedLessons.some(
-  //                               (completedLesson: any) =>
-  //                                 completedLesson.lesson === lesson.id
-  //                             ) && (
-  //                               <p className="text-green-500">
-  //                                 ({t("Completed")})
-  //                               </p>
-  //                             )}
-  //                         </div>
-  //                         <hr className="my-5" />
-  //                       </li>
-  //                     ))}
-  //                 </ul>
-  //               </div>
-  //               <div className="ml-28">{isCreator && <NewLesson />}</div>
-  //               <div>
-  //                 <div className="flex justify-center gap-20">
-  //                   {selectedModuleIndex > 0 ? (
-  //                     <div className="flex justify-center">
-  //                       <button
-  //                         className="bg-violet-200 px-20 py-2 my-5 rounded-md items-center"
-  //                         onClick={handlePreviousModule}
-  //                       >
-  //                         &larr; {t("Previous Module")}
-  //                       </button>
-  //                     </div>
-  //                   ) : (
-  //                     <div className="flex justify-center invisible">
-  //                       <button className="bg-transparent"></button>
-  //                     </div>
-  //                   )}
-  //                   {selectedModuleIndex < modules.length - 1 ? (
-  //                     <div className="flex justify-center">
-  //                       <button
-  //                         className="bg-violet-200 px-20 py-2 my-5 rounded-md items-center"
-  //                         onClick={handleNextModule}
-  //                       >
-  //                         {t("Next Module")} &rarr;
-  //                       </button>
-  //                     </div>
-  //                   ) : (
-  //                     <div className="flex justify-center invisible">
-  //                       <button className="bg-transparent"></button>
-  //                     </div>
-  //                   )}
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           )}
-  //         </div>
-  //       ) : (
-  //         <div>
-  //           {course && (
-  //             <div className="flex gap-24 ">
-  //               <div key={course.id} className="max-w-lg  m-5  ">
-  //                 <img
-  //                   className="rounded-md"
-  //                   src={course.image}
-  //                   style={{ height: "250px", width: "100%" }}
-  //                   alt=""
-  //                 />
-  //                 <div className="p-5">
-  //                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-violet-900">
-  //                     {course.title}
-  //                   </h5>
-  //                   <p className="mb-3 font-normal text-gray-700">
-  //                     {course.description}
-  //                   </p>
-  //                 </div>
-  //                 <div className="flex gap-10 mx-20">
-  //                   <h3>
-  //                     {t("Rating")} {course.rating}/5
-  //                   </h3>
-  //                   <h3>
-  //                     {t("Level")} {course.level}
-  //                   </h3>
-  //                   <h3>
-  //                     {course.enrolledStudents}+ {t("Learners")}
-  //                   </h3>
-  //                 </div>
-  //               </div>
-  //               <div className="m-3">
-  //                 <div className="text-2xl my-3">{t("Course Progress")}</div>
-  //                 <div>
-  //                   {t("Total Lessons c")} : {course.num_lessons}
-  //                 </div>
-  //                 <div>
-  //                   {t("Total Lessons")} : {totalLessons}
-  //                 </div>
-  //                 <div>
-  //                   {t("Completed Lessons")} : {completedLessons.length}
-  //                 </div>
-  //                 <DonutGraph
-  //                   totalLessons={totalLessons}
-  //                   completedLessons={completedLessons}
-  //                 />
-  //               </div>
-  //             </div>
-  //           )}
-  //         </div>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
 }

@@ -9,7 +9,7 @@ const config = {
   testMatch: ["**/*.test.{ts,tsx}"],
   transform: {
     "^.+\\.tsx?$": "ts-jest",
-    // "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.jsx?$": "babel-jest",
   },
 
   globals: {
