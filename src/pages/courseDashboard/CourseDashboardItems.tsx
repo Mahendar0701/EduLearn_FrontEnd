@@ -16,7 +16,7 @@ import ModuleEditForm from "../module/EditModuleForm";
 // import Chart from "chart.js/auto";
 import DonutGraph from "../dashboard/DonutGraph";
 import { API_ENDPOINT } from "../../config/constants";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 // import CourseDetails from "../courseDetails";
 // import Rating from "react-rating-stars-component";
 
