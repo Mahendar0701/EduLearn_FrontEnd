@@ -2,6 +2,7 @@ import { render, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import { BrowserRouter as Router } from "react-router-dom";
 import SigninForm from "../pages/signin/SigninForm";
+import { API_ENDPOINT } from "../config/constants";
 
 jest.mock("axios");
 
@@ -41,13 +42,10 @@ describe("SigninForm", () => {
 
     // Wait for axios to be called with the correct data
     await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledWith(
-        "http://127.0.0.1:8000/api/signin/",
-        {
-          email: "test@example.com",
-          password: "password123",
-        }
-      );
+      expect(axios.post).toHaveBeenCalledWith(`${API_ENDPOINT}/api/signin/`, {
+        email: "test@example.com",
+        password: "password123",
+      });
     });
 
     // Assert navigation to the correct page after successful sign-in

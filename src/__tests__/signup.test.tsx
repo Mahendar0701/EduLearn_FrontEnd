@@ -4,6 +4,7 @@ import axios from "axios";
 // import SignupForm from "./SignupForm";
 import { BrowserRouter as Router } from "react-router-dom";
 import SignupForm from "../pages/signup/SignupForm";
+import { API_ENDPOINT } from "../config/constants";
 
 // Mock axios post function
 jest.mock("axios");
@@ -53,15 +54,12 @@ describe("SignupForm", () => {
 
     // Wait for axios to be called with the correct data
     await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledWith(
-        "http://127.0.0.1:8000/api/signup/",
-        {
-          username: "JohnDoe",
-          email: "test@example.com",
-          password: "password123",
-          role: "student",
-        }
-      );
+      expect(axios.post).toHaveBeenCalledWith(`${API_ENDPOINT}/api/signup/`, {
+        username: "JohnDoe",
+        email: "test@example.com",
+        password: "password123",
+        role: "student",
+      });
     });
 
     // Assert navigation to the correct page after successful sign-up
