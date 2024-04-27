@@ -37,7 +37,7 @@ export default function CourseDashboard() {
   const [selectedModuleIndex, setSelectedModuleIndex] = useState(1);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [totalLessons, setTotalLessons] = useState(0);
-  const [showProgress, setShowProgress] = useState(false);
+  // const [showProgress, setShowProgress] = useState(false);
   // const [lessons, setLessons] = useState([]);
 
   const [isSidebarOpen, _setIsSidebarOpen] = useState(true); // State for sidebar
@@ -52,7 +52,7 @@ export default function CourseDashboard() {
     // setTotalLessons(lessons.length);
 
     if (moduleId !== selectedModule?.id) {
-      setSelectedModule((prevModule) => {
+      setSelectedModule((_prevModule) => {
         // Update selected module only if it's different from the previously selected module
         return moduleId;
       });
