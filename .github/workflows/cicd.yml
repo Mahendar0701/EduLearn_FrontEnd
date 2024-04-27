@@ -28,7 +28,7 @@ jobs:
         run: npm run build
 
       - name: run test
-        run: npm test
+        run: npm test -- --config=jest.config.ts
 
       - name: Slack Notify
         uses: act10ns/slack@v1
