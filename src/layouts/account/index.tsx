@@ -16,9 +16,7 @@ const AccountLayout = () => {
       </main>
       <footer className="bg-gray-900 text-white py-8">
         <div className="container mx-auto text-center">
-          <p>
-            &copy; {new Date().getFullYear()} EduLearn. All rights reserved.
-          </p>
+          <p>&copy; {new Date().getFullYear()} EduLearn.</p>
           {/* Add additional footer links here */}
         </div>
       </footer>

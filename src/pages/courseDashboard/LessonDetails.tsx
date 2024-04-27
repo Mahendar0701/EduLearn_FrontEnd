@@ -99,11 +99,6 @@ const LessonDetails = () => {
     return lessons.findIndex((lesson: any) => lesson.id === Number(lessonId));
   };
 
-  // const currentIndex = findLessonIndex(lessonID);
-  // const previousLesson = currentIndex !== -1 ? lessons[currentIndex - 1] : null;
-  // const nextLesson = lessons[currentIndex + 1];
-  // console.log("nextLesson", currentIndex, nextLesson);
-
   const currentIndex = findLessonIndex(lessonID);
   const previousLesson =
     lessons && currentIndex !== -1 ? lessons[currentIndex - 1] : null;
@@ -261,7 +256,7 @@ const LessonDetails = () => {
           </button>
         </div>
       )}
-      <div>
+      <div className="mt-5">
         {isLessonCompleted ? (
           <p className="bg-gray-400 px-14 py-2  rounded-md text-center ">
             ✓✓ Marked as Completed

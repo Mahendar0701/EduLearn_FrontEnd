@@ -18,7 +18,7 @@ const config = {
   //   },
   // },
   // silent: true,
-  // preset: "ts-jest",
+  preset: "ts-jest",
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 

@@ -38,3 +38,25 @@ export interface CourseFormValues {
   prerequisites: string;
   resources: string;
 }
+
+export interface ModuleType {
+  id: number;
+  course: string;
+  title: string;
+  description: string;
+  order: number;
+  image_link: string;
+  video_link: string;
+  instructorId: number;
+}
+
+// type ModuleType = {
+//   id: number;
+//   course: string;
+//   title: string;
+//   description: string;
+//   order: number;
+//   image_link: string;
+//   video_link: string;
+//   instructorId: number;
+// };

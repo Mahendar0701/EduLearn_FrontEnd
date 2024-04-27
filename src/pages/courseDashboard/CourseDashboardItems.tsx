@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import closesidebar from "../../assets/images/closesidebar.png";
+import opensidebar from "../../assets/images/opensidebar.png";
+
 import { useCourseDetailsState } from "../../context/course_details/context";
 import { useModuleState } from "../../context/module/context";
 import { useLessonState } from "../../context/lessons/context";
@@ -10,12 +13,12 @@ import LessonDetails from "./LessonDetails";
 // import ModuleTab from "./ModuleTab";
 // import LessonFormComponent from "../lesson";
 import NewLesson from "../lesson/LessonFormDialogue";
-import NewModule from "../module/ModuleForm";
 import ModuleEditForm from "../module/EditModuleForm";
 // import CourseDetails from "../courseDetails/CourseDetailsItems";
 // import Chart from "chart.js/auto";
 import DonutGraph from "../dashboard/DonutGraph";
 import { API_ENDPOINT } from "../../config/constants";
+import Sidebar from "./SideBar";
 // import { useTranslation } from "react-i18next";
 // import CourseDetails from "../courseDetails";
 // import Rating from "react-rating-stars-component";
@@ -34,7 +37,6 @@ type ModuleType = {
 export default function CourseDashboard() {
   const [selectedModule, setSelectedModule] = useState<ModuleType>();
   const [selectedLesson, setSelectedLesson] = useState(null);
-  const [selectedModuleIndex, setSelectedModuleIndex] = useState(1);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [totalLessons, setTotalLessons] = useState(0);
   // const [showProgress, setShowProgress] = useState(false);
@@ -86,7 +88,7 @@ export default function CourseDashboard() {
 
   const { course, isLoading, isError, errorMessage } = courseDetailsState;
   const { modules, isLoading1, isError1, errorMessage1 } = moduleState;
-  const { lessons, isLoading2, isError2, errorMessage2 } = lessonState;
+  const { lessons, isError2, errorMessage2 } = lessonState;
 
   // Filter the selected module based on moduleID
   const selecteddModule = modules.find(
@@ -155,13 +157,13 @@ export default function CourseDashboard() {
       });
   }, [courseID, moduleID, lessonID, authToken]);
 
-  if (isLoading || isLoading1 || isLoading2) {
-    return (
-      <div className="text-center text-gray-700 dark:text-gray-300">
-        Loading...
-      </div>
-    );
-  }
+  // if (isLoading || isLoading1 || isLoading2) {
+  //   return (
+  //     <div className="text-center text-gray-700 dark:text-gray-300">
+  //       Loading...
+  //     </div>
+  //   );
+  // }
 
   if (isError || isError1 || isError2) {
     return (
@@ -201,26 +203,24 @@ export default function CourseDashboard() {
   //   }
   // };
 
-  const handleNextModule = () => {
-    if (selectedModuleIndex < modules.length - 1) {
-      const nextModuleIndex = selectedModuleIndex + 1;
-      setSelectedModuleIndex(nextModuleIndex);
-      const nextModuleId = modules[nextModuleIndex].id;
-      navigate(
-        `/dashboard/courses/${courseID}/modules/${nextModuleId}/lessons`
-      );
-    }
+  const findModuleIndex = (moduleId: any) => {
+    if (!modules) return -1;
+    return modules.findIndex((module: any) => module.id === Number(moduleId));
   };
 
-  const handlePreviousModule = () => {
-    if (selectedModuleIndex > 0) {
-      const prevModuleIndex = selectedModuleIndex - 1;
-      setSelectedModuleIndex(prevModuleIndex);
-      const prevModuleId = modules[prevModuleIndex].id;
-      navigate(
-        `/dashboard/courses/${courseID}/modules/${prevModuleId}/lessons`
-      );
-    }
+  const currentModuleIndex = findModuleIndex(moduleID);
+
+  const previousModule =
+    modules && currentModuleIndex !== -1
+      ? modules[currentModuleIndex - 1]
+      : null;
+  const nextModule =
+    modules && currentModuleIndex !== -1
+      ? modules[currentModuleIndex + 1]
+      : null;
+
+  const navigateToModule = (moduleId: any) => {
+    navigate(`/dashboard/courses/${courseID}/modules/${moduleId}/lessons`);
   };
 
   const handleDeleteModule = () => {
@@ -274,62 +274,44 @@ export default function CourseDashboard() {
 
   return (
     <div className="flex">
-      <div
-        className={`w-1/4 p-4 border-r overflow-y-scroll ${
-          isSidebarOpen ? "" : "hidden" // Hide or show sidebar based on isSidebarOpen
-        }`}
-        style={{ height: "90vh", position: "sticky", top: 0 }}
-      >
-        <hr />
+      <Sidebar
+        isCreator={isCreator}
+        course={course}
+        isLoading={isLoading}
+        isLoading1={isLoading1}
+        courseID={courseID}
+        modules={modules}
+        isSidebarOpen={isSidebarOpen}
+        handleModuleClick={handleModuleClick}
+        isModuleCompleted={isModuleCompleted}
+        selectedModule={selectedModule}
+      />
 
-        <h1 className="text-3xl font-semibold my-2 text-center">
-          Course Outline
-        </h1>
-        {isCreator && <NewModule />}
-        <Link to={`/dashboard/courses/${course.id}/coursedashboard`}>
-          <button
-            className="cursor-pointer w-full pr-5 pl-5 py-4  border bg-purple-100 hover:bg-purple-200"
-            // onClick={() => setShowProgress(showProgress)}
-          >
-            <p className="">My Learning</p>
-          </button>
-        </Link>
-        <ul>
-          {modules.map((module: any) => (
-            <li
-              key={module.id}
-              className={`cursor-pointer pr-5 pl-5 py-4 my-1 border ${
-                isModuleCompleted(module.id) ? "border-green-500" : ""
-              } hover:bg-slate-200 ${
-                selectedModule === module ? "bg-slate-200" : "bg-slate-100"
-              }`}
-              onClick={() => {
-                handleModuleClick(module);
-                navigate(
-                  `/dashboard/courses/${courseID}/modules/${module.id}/lessons`
-                );
-              }}
-            >
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">{module.title}</h3>
-
-                <span className="text-lg">
-                  {selectedModule === module ? "▲" : "▼"}
-                </span>
-              </div>
-              {/* {selectedModule === module && (
-                <p className="text-md">{module.description}</p>
-              )} */}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <button onClick={handleToggleSidebar} className="mb-4">
-        C
-      </button>
+      {/* <button onClick={handleToggleSidebar} className="mb-4 ">
+        ←
+      </button> */}
       {/* Content Area with Lessons */}
-      <div className=" w-3/4 p-4 ">
+      <div className={`${isSidebarOpen ? "  w-3/4 p-4 " : "w-full p-4"}`}>
+        <button onClick={handleToggleSidebar} className="mb-4 ">
+          {isSidebarOpen ? (
+            <div>
+              <img
+                src={closesidebar}
+                alt=""
+                style={{ width: "30px", height: "auto" }}
+              />
+            </div>
+          ) : (
+            <div>
+              {" "}
+              <img
+                src={opensidebar}
+                alt=""
+                style={{ width: "30px", height: "auto" }}
+              />
+            </div>
+          )}
+        </button>
         {selectedModule && moduleID ? (
           <div>
             {selectedLesson && lessonID ? (
@@ -407,36 +389,28 @@ export default function CourseDashboard() {
                 </div>
                 <div className="ml-28">{isCreator && <NewLesson />}</div>
                 <div>
-                  <div className="flex justify-center gap-20">
-                    {selectedModuleIndex > 0 ? (
-                      <div className="flex justify-center">
+                  <div className="grid grid-cols-2 gap-4 mx-48 my-10 justify-around">
+                    <div className="flex justify-start w-full">
+                      {previousModule && (
                         <button
-                          className="bg-violet-200 px-20 py-2 my-5 rounded-md items-center"
-                          onClick={handlePreviousModule}
+                          className="bg-violet-200 px-4 py-2 w-full rounded-md items-center "
+                          onClick={() => navigateToModule(previousModule.id)}
                         >
                           &larr; Previous Module
                         </button>
-                      </div>
-                    ) : (
-                      <div className="flex justify-center invisible">
-                        <button className="bg-transparent"></button>
-                      </div>
-                    )}
+                      )}
+                    </div>
 
-                    {selectedModuleIndex < modules.length - 1 ? (
-                      <div className="flex justify-center">
+                    <div className="flex justify-end">
+                      {nextModule && (
                         <button
-                          className="bg-violet-200 px-20 py-2 my-5 rounded-md items-center"
-                          onClick={handleNextModule}
+                          className="bg-violet-200 px-4 py-2 w-full rounded-md "
+                          onClick={() => navigateToModule(nextModule.id)}
                         >
                           Next Module &rarr;
                         </button>
-                      </div>
-                    ) : (
-                      <div className="flex justify-center invisible">
-                        <button className="bg-transparent"></button>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

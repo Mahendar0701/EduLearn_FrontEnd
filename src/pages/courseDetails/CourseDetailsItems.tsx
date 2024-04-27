@@ -15,6 +15,7 @@ export default function CourseDetails() {
 
   const [selectedModule, setSelectedModule] = useState(null);
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [enrollLoading, setEnrollLoading] = useState(false);
 
   const handleModuleClick = (moduleId: null) => {
     // Toggle selected module when clicked
@@ -35,6 +36,7 @@ export default function CourseDetails() {
 
   useEffect(() => {
     // Fetch enrollment status when the component mounts
+    setEnrollLoading(true);
     const fetchEnrollmentStatus = async () => {
       try {
         const response = await axios.get(
@@ -46,8 +48,10 @@ export default function CourseDetails() {
           }
         );
         setIsEnrolled(!!response.data); // Set isEnrolled to true if there is enrollment data
+        setEnrollLoading(false);
       } catch (error) {
         setIsEnrolled(false); // Set isEnrolled to false if there is an error or no enrollment data
+        setEnrollLoading(false);
       }
     };
 
@@ -198,46 +202,54 @@ export default function CourseDetails() {
                   {course.enrolledStudents}+ {t("Learners")}
                 </h3>
               </div>
-              <div className="flex mx-auto">
-                {isEnrolled ? (
-                  <Link
-                    to="coursedashboard"
-                    className="bg-violet-900 text-white hover:bg-violet-950 shadow px-20 py-2 my-5 rounded-md items-center mx-auto"
-                  >
-                    {t("Open Course")} {/* Translate static text */}
-                  </Link>
-                ) : isAuthenticated ? (
-                  <div className="flex gap-4 mx-6">
-                    <button
-                      id="enroll-now"
-                      className="bg-violet-900 text-white hover:bg-violet-950  px-20 py-2 my-5 rounded-md items-center mx-auto"
-                      onClick={enrollHandler}
-                    >
-                      {t("Buy Now")} {/* Translate static text */}
-                    </button>
-                    <button
-                      className="bg-violet-800 text-white hover:bg-violet-900 px-20 py-2 my-5 rounded-md items-center mx-auto"
-                      onClick={cartHandler}
-                    >
-                      {t("Add to cart")} {/* Translate static text */}
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex gap-3">
-                    <a
-                      className="bg-violet-900 text-white hover:bg-violet-950 px-20 py-2 my-5 rounded-md items-center mx-auto"
-                      href="/signin"
-                    >
-                      {t("Buy Now")} {/* Translate static text */}
-                    </a>
-                    <a
-                      className="bg-violet-500 text-white hover:bg-violet-900 px-20 py-2 my-5 rounded-md items-center mx-auto"
-                      href="/signin"
-                    >
-                      {t("Add to Cart")} {/* Translate static text */}
-                    </a>
-                  </div>
-                )}
+              <div className="flex m-auto justify-center my-9">
+                <div>
+                  {enrollLoading ? (
+                    <div>Loading...</div>
+                  ) : (
+                    <div>
+                      {isEnrolled ? (
+                        <Link
+                          to="coursedashboard"
+                          className="bg-violet-900 text-white hover:bg-violet-950 shadow px-20 py-2 my-5 rounded-md items-center mx-auto"
+                        >
+                          {t("Open Course")} {/* Translate static text */}
+                        </Link>
+                      ) : isAuthenticated ? (
+                        <div className="flex gap-4 mx-6">
+                          <button
+                            id="enroll-now"
+                            className="bg-violet-900 text-white hover:bg-violet-950  px-20 py-2 my-5 rounded-md items-center mx-auto"
+                            onClick={enrollHandler}
+                          >
+                            {t("Buy Now")} {/* Translate static text */}
+                          </button>
+                          <button
+                            className="bg-violet-800 text-white hover:bg-violet-900 px-20 py-2 my-5 rounded-md items-center mx-auto"
+                            onClick={cartHandler}
+                          >
+                            {t("Add to cart")} {/* Translate static text */}
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex gap-3">
+                          <a
+                            className="bg-violet-900 text-white hover:bg-violet-950 px-20 py-2 my-5 rounded-md items-center mx-auto"
+                            href="/signin"
+                          >
+                            {t("Buy Now")} {/* Translate static text */}
+                          </a>
+                          <a
+                            className="bg-violet-500 text-white hover:bg-violet-900 px-20 py-2 my-5 rounded-md items-center mx-auto"
+                            href="/signin"
+                          >
+                            {t("Add to Cart")} {/* Translate static text */}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             <div>
