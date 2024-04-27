@@ -3,24 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom",
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|svg)$": "jest-transform-stub"
-    }
-  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build ",
