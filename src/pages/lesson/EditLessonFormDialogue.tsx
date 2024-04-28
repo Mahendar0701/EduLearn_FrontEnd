@@ -6,6 +6,8 @@ import { API_ENDPOINT } from "../../config/constants";
 import JoditEditor from "jodit-react";
 import { Fragment, useState, useRef, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // First I'll import the addProject function
 // import { addProject } from "../../context/projects/actions";
@@ -99,6 +101,10 @@ const LessonEditForm: React.FC<{
 
       console.log("Lesson updated successfully", response.data);
 
+      toast.success("Lesson updated successfully!", {
+        autoClose: 3000,
+      });
+
       setIsOpen(false);
 
       // Clear previous errors if any
@@ -106,6 +112,9 @@ const LessonEditForm: React.FC<{
 
       // Perform any necessary navigation or state updates after successful sign-in
     } catch (error: any) {
+      toast.error("course updation failed!", {
+        autoClose: 3000,
+      });
       console.error(
         "Lesson creation failed:",
         error.response?.data || error.message

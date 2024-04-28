@@ -223,6 +223,12 @@ export default function CourseDashboard() {
     navigate(`/dashboard/courses/${courseID}/modules/${moduleId}/lessons`);
   };
 
+  const confirmDeleteModule = () => {
+    if (window.confirm("Are you sure you want to delete this module?")) {
+      handleDeleteModule();
+    }
+  };
+
   const handleDeleteModule = () => {
     axios
       .delete(`${API_ENDPOINT}/api/courses/${courseID}/modules/${moduleID}/`, {
@@ -334,7 +340,8 @@ export default function CourseDashboard() {
                       />
                       <button
                         className="bg-red-600 hover:bg-red-800 text-white px-3 py-2 rounded-md ml-3"
-                        onClick={handleDeleteModule}
+                        // onClick={handleDeleteModule}
+                        onClick={confirmDeleteModule}
                       >
                         Delete Module
                       </button>

@@ -5,8 +5,10 @@ import { API_ENDPOINT } from "../../config/constants";
 // import JoditEditor from "jodit-react";
 import { Fragment, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
 // import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 interface CourseData {
   id: number;
@@ -37,6 +39,13 @@ const CourseEditForm: React.FC<{
   // Next, I'll add a new state to handle errors.
   const [error, setError] = useState<string | null>(null);
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
+
+  const confirmDeleteCourse = () => {
+    if (window.confirm("Are you sure you want to delete this course?")) {
+      handleDelete();
+    }
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -117,6 +126,12 @@ const CourseEditForm: React.FC<{
       console.log("course deleted successfully", response.data);
 
       setIsOpen(false);
+      toast.success("course deleted successfully!", {
+        autoClose: 3000,
+      });
+
+      navigate("/dashboard");
+
       // history.push("/dashboard");
       // Perform any necessary navigation or state updates after successful deletion
     } catch (error: any) {
@@ -124,6 +139,9 @@ const CourseEditForm: React.FC<{
         "course deletion failed:",
         error.response?.data || error.message
       );
+      toast.error("Course deletion Failed!", {
+        autoClose: 3000,
+      });
       setError("Failed to delete course");
     }
   };
@@ -145,9 +163,9 @@ const CourseEditForm: React.FC<{
       );
 
       console.log("course updated successfully", response.data);
-      // toast.success("Course updated successfully!", {
-      //   autoClose: 3000,
-      // });
+      toast.success("Course updated successfully!", {
+        autoClose: 3000,
+      });
 
       setIsOpen(false);
 
@@ -156,9 +174,9 @@ const CourseEditForm: React.FC<{
 
       // Perform any necessary navigation or state updates after successful sign-in
     } catch (error: any) {
-      // toast.error("Course updation failed. Please try again.", {
-      //   autoClose: 3000,
-      // });
+      toast.error("Course updation failed. Please try again.", {
+        autoClose: 3000,
+      });
       console.error(
         "course edit creation failed:",
         error.response?.data || error.message
@@ -477,7 +495,8 @@ const CourseEditForm: React.FC<{
                     </form>
                     <button
                       type="button"
-                      onClick={handleDelete}
+                      // onClick={handleDelete}
+                      onClick={confirmDeleteCourse}
                       className="my-2 rounded-md bg-red-600 px-2 py-3 w-full MY-3 text-sm font-medium text-white hover:bg-opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                     >
                       Delete Course

@@ -5,6 +5,10 @@ import { API_ENDPOINT } from "../../config/constants";
 // import JoditEditor from "jodit-react";
 import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { fetchCategories } from "../../context/categories/action";
+import { useCategoryDispatch } from "../../context/categories/context";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CategoryData {
   title: string;
@@ -28,6 +32,7 @@ const CreateCategoryForm = () => {
     setIsOpen(true);
   };
   const authToken = localStorage.getItem("authToken");
+  const dispatch = useCategoryDispatch();
   const onSubmit: SubmitHandler<CategoryData> = async (data) => {
     const { title } = data;
 
@@ -47,6 +52,12 @@ const CreateCategoryForm = () => {
       setIsOpen(false);
 
       console.log("Category created  successful");
+      // await fetchCourses(dispatch);
+      await fetchCategories(dispatch);
+
+      toast.success("Category created successfully!", {
+        autoClose: 3000,
+      });
 
       // Clear previous errors if any
       setError(null);
@@ -58,6 +69,9 @@ const CreateCategoryForm = () => {
         error.response?.data || error.message
       );
       setError("Invalid field entries");
+      toast.error("Category created successfully!", {
+        autoClose: 3000,
+      });
     }
   };
 

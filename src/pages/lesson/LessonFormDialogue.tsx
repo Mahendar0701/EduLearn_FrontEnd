@@ -6,6 +6,8 @@ import JoditEditor from "jodit-react";
 import { Fragment, useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // First I'll import the addProject function
 // import { addProject } from "../../context/projects/actions";
@@ -45,22 +47,7 @@ const NewLesson = () => {
   const openModal = () => {
     setIsOpen(true);
   };
-  //   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-  //     const { name } = data;
 
-  //     // Next, I'll call the addProject function with two arguments:
-  //     //`dispatchProjects` and an object with `name` attribute.
-  //     // As it's an async function, we will await for the response.
-  //     const response = await addProject(dispatchProjects, { name });
-
-  //     // Then depending on response, I'll either close the modal...
-  //     if (response.ok) {
-  //       setIsOpen(false);
-  //     } else {
-  //       // Or I'll set the error.
-  //       setError(response.error as React.SetStateAction<null>);
-  //     }
-  //   };
   const authToken = localStorage.getItem("authToken");
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { title, order, image_link, video_link, instructorId } = data;
@@ -89,6 +76,9 @@ const NewLesson = () => {
       setIsOpen(false);
 
       console.log("lesson created  successful");
+      toast.success("Lesson created successfully!", {
+        autoClose: 3000,
+      });
       setContent("");
 
       // Clear previous errors if any
@@ -96,6 +86,9 @@ const NewLesson = () => {
 
       // Perform any necessary navigation or state updates after successful sign-in
     } catch (error: any) {
+      toast.error("Lesson creation failed!", {
+        autoClose: 3000,
+      });
       console.error(
         "Lesson creation failed:",
         error.response?.data || error.message

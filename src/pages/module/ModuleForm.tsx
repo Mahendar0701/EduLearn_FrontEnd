@@ -5,6 +5,8 @@ import { API_ENDPOINT } from "../../config/constants";
 import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Inputs = {
   title: string;
@@ -71,8 +73,15 @@ const NewModule = () => {
       // Clear previous errors if any
       setError(null);
 
+      toast.success("module created successfully!", {
+        autoClose: 3000,
+      });
+
       // Perform any necessary navigation or state updates after successful sign-in
     } catch (error: any) {
+      toast.success("module creation failed!", {
+        autoClose: 3000,
+      });
       console.error(
         "module creation failed:",
         error.response?.data || error.message

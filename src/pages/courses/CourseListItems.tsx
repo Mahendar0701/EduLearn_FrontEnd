@@ -12,7 +12,6 @@ export default function CourseListItems() {
   const courseState: any = useCourseState();
 
   const { courses, isLoading, isError, errorMessage } = courseState;
-  console.log("courses", courseState);
 
   // if (courses.length === 0) {
   //   throw Error("Error!!!");

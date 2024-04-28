@@ -6,6 +6,8 @@ import axios from "axios";
 import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { API_ENDPOINT } from "../../config/constants";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CourseData {
   title: string;
@@ -86,15 +88,22 @@ const EditCourseForm = () => {
 
       setIsOpen(false);
 
-      console.log("course created  successful");
+      console.log("course updated  successful");
+
+      toast.success("course updated successfully!", {
+        autoClose: 3000,
+      });
 
       // Clear previous errors if any
       setError(null);
     } catch (error: any) {
       console.error(
-        "course creation failed:",
+        "course updation failed:",
         error.response?.data || error.message
       );
+      toast.success("course updation failed!", {
+        autoClose: 3000,
+      });
       setError("Invalid field entries");
     }
   };

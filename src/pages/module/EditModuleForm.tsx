@@ -7,6 +7,8 @@ import { API_ENDPOINT } from "../../config/constants";
 import { Fragment, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // First I'll import the addProject function
 // import { addProject } from "../../context/projects/actions";
@@ -86,6 +88,10 @@ const ModuleEditForm: React.FC<{
 
       console.log("Module updated successfully", response.data);
 
+      toast.success("module updated successfully!", {
+        autoClose: 3000,
+      });
+
       setIsOpen(false);
 
       // Clear previous errors if any
@@ -93,8 +99,11 @@ const ModuleEditForm: React.FC<{
 
       // Perform any necessary navigation or state updates after successful sign-in
     } catch (error: any) {
+      toast.error("module updation failed!", {
+        autoClose: 3000,
+      });
       console.error(
-        "Module creation failed:",
+        "Module updation failed:",
         error.response?.data || error.message
       );
       setError("Invalid field entries");

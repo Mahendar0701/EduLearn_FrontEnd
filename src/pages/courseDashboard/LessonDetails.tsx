@@ -153,6 +153,12 @@ const LessonDetails = () => {
       });
   };
 
+  const confirmDeleteLesson = () => {
+    if (window.confirm("Are you sure you want to delete this lesson?")) {
+      handleLessonDelete();
+    }
+  };
+
   const handleLessonDelete = () => {
     axios
       .delete(
@@ -250,7 +256,8 @@ const LessonDetails = () => {
           />
           <button
             className="bg-red-500 hover:bg-red-700 text-white px-3 py-2 mx-2 rounded-md"
-            onClick={handleLessonDelete}
+            // onClick={handleLessonDelete}
+            onClick={confirmDeleteLesson}
           >
             Delete{" "}
           </button>

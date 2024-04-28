@@ -4,10 +4,11 @@ import axios from "axios";
 // import JoditEditor from "jodit-react";
 import { Fragment, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createCourse } from "../../context/courses/action";
+import { createCourse, fetchCourses } from "../../context/courses/action";
 import { useCourseDispatch } from "../../context/courses/context";
 import { API_ENDPOINT } from "../../config/constants";
-// import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CourseData {
   id: number;
@@ -60,8 +61,15 @@ const CreateCourseForm = () => {
           // },
         });
         setCategories(response.data);
-        console.log(response.data);
+
+        toast.success("course created successfully!", {
+          autoClose: 3000,
+        });
+        // console.log(response.data);
       } catch (error: any) {
+        toast.error("course creation failed!", {
+          autoClose: 3000,
+        });
         console.error(
           "Category retrieval failed:",
           error.response?.data || error.message
@@ -92,11 +100,18 @@ const CreateCourseForm = () => {
     try {
       await createCourse(dispatch, data);
       // await dispatch(createCourseAction(data));
+      await fetchCourses(dispatch);
+      toast.success("Course created successfully!", {
+        autoClose: 3000,
+      });
 
       setIsOpen(false);
       setError(null);
     } catch (error) {
       setError("Failed to create course");
+      toast.error("Failed to create course!", {
+        autoClose: 3000,
+      });
     }
   };
 
