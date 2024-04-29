@@ -5,6 +5,7 @@ import axios from "axios";
 import { BrowserRouter as Router } from "react-router-dom";
 import SignupForm from "../pages/signup/SignupForm";
 import { API_ENDPOINT } from "../config/constants";
+import "@testing-library/jest-dom";
 
 // Mock axios post function
 jest.mock("axios");
