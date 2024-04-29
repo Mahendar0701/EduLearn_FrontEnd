@@ -27,8 +27,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      # - name: run test
-      #   run: npm test
+      - name: run test
+        run: npm test
 
       - name: Slack Notify
         uses: act10ns/slack@v1
