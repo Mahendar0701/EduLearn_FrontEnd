@@ -3,7 +3,7 @@ import axios from "axios";
 import { BrowserRouter as Router } from "react-router-dom";
 import SigninForm from "../pages/signin/SigninForm";
 import { API_ENDPOINT } from "../config/constants";
-import "@testing-library/jest-dom";
+// import "@testing-library/jest-dom";
 
 jest.mock("axios");
 
