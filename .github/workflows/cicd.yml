@@ -27,11 +27,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      # - name: run unit test
-      #   run: npm test
+      - name: run unit test
+        run: npm test
 
-      # - name: run integration tests
-      #   run: npm run test-cypress
+      - name: run integration tests
+        run: npm run test-cypress
 
       - name: Deploy production to Netlify
         uses: South-Paw/action-netlify-deploy@v1.2.0
