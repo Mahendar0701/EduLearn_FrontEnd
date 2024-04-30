@@ -62,14 +62,8 @@ const CreateCourseForm = () => {
         });
         setCategories(response.data);
 
-        toast.success("course created successfully!", {
-          autoClose: 3000,
-        });
         // console.log(response.data);
       } catch (error: any) {
-        toast.error("course creation failed!", {
-          autoClose: 3000,
-        });
         console.error(
           "Category retrieval failed:",
           error.response?.data || error.message

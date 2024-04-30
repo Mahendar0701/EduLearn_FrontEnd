@@ -27,8 +27,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: run test
+      - name: run unit test
         run: npm test
+
+      - name: run integration tests
+        run: npm run test-cypress
 
       - name: Slack Notify
         uses: act10ns/slack@v1

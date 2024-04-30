@@ -108,7 +108,7 @@ const SignupForm = () => {
             type="password"
             placeholder="Enter password..."
             autoFocus
-            {...register("password", { required: true })}
+            {...register("password", { required: true, minLength: 8 })}
             className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
               errors.password ? "border-red-500" : ""
             }`}
