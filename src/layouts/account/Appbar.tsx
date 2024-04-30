@@ -249,10 +249,8 @@ export default function Example() {
                       <Menu as="div" className="relative ml-3">
                         <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
                           {currentLanguage === "en"
-                            ? t("English")
-                            : currentLanguage === "es"
-                            ? t("Spanish")
-                            : t("German")}{" "}
+                            ? "English"
+                            : currentLanguage === "es" && "Spanish"}{" "}
                           {/* Add the third language label */}
                           <svg
                             className="-mr-1 ml-2 h-5 w-5"
@@ -294,7 +292,7 @@ export default function Example() {
                               </button>
                             )}
                           </Menu.Item>
-                          <Menu.Item>
+                          {/* <Menu.Item>
                             {({ active }) => (
                               <button
                                 className={`${
@@ -305,7 +303,7 @@ export default function Example() {
                                 {t("German")}
                               </button>
                             )}
-                          </Menu.Item>
+                          </Menu.Item> */}
                         </Menu.Items>
                       </Menu>
                     </Menu.Items>

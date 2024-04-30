@@ -11,8 +11,13 @@ const Dashboard: React.FC = () => {
   let userData = null;
 
   const userDataString = localStorage.getItem("userData");
+  console.log("userDataString", userDataString);
   if (userDataString) {
-    userData = JSON.parse(userDataString);
+    try {
+      userData = JSON.parse(userDataString);
+    } catch (error) {
+      console.error("Error parsing userDataString:", error);
+    }
   }
 
   let role = null;
