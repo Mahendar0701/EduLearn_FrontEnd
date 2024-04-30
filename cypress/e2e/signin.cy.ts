@@ -3,7 +3,7 @@
 describe("SigninForm", () => {
   beforeEach(() => {
     // Visit the sign-in page
-    cy.visit("http://localhost:5173/signin");
+    cy.visit("https://edulearn-react.netlify.app/signin");
   });
 
   it("successfully signs in with valid credentials", () => {
@@ -15,7 +15,7 @@ describe("SigninForm", () => {
     cy.get("form").submit();
 
     // Assert that the user is redirected to the home page after successful sign-in
-    cy.url().should("eq", "http://localhost:5173/"); // Adjust this URL according to your application's redirect after sign-in
+    cy.url().should("eq", "https://edulearn-react.netlify.app/"); // Adjust this URL according to your application's redirect after sign-in
   });
 
   it("displays error message for invalid credentials", () => {

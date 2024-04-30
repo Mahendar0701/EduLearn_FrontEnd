@@ -1,6 +1,6 @@
 describe("SignupForm", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5173/signup");
+    cy.visit("https://edulearn-react.netlify.app/signup");
   });
 
   it("successfully signs up with valid credentials", () => {
@@ -23,6 +23,6 @@ describe("SignupForm", () => {
       cy.log("Current URL:", url);
     });
 
-    cy.url().should("eq", "http://localhost:5173/signin");
+    cy.url().should("eq", "https://edulearn-react.netlify.app/signin");
   });
 });
