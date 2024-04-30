@@ -456,7 +456,7 @@ export default function CourseDashboard() {
                 </div>
                 <div className="m-3">
                   <div className="text-2xl my-3">Course Progress</div>
-                  <div>Total Lessons c : {course.num_lessons}</div>
+                  {/* <div>Total Lessons c : {course.num_lessons}</div> */}
                   <div>Total Lessons : {totalLessons}</div>
                   <div>Completed Lessons : {completedLessons.length}</div>
 
