@@ -56,7 +56,6 @@ jobs:
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{"text":"Commit has been successful✅"}' ${{secrets.SLACK_WEBHOOK_URL}}
 
-      # Notify on Slack for failure
       - name: Failure Notify
         if: failure()
         run: |
