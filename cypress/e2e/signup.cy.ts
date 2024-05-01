@@ -9,7 +9,7 @@ describe("SignupForm", () => {
     const uniqueEmail = `${baseEmail}_${timestamp}@example.com`; // Unique email address
 
     cy.get("#userName").type("Test User");
-    cy.get("#userEmail").type(uniqueEmail); // Use the unique email address
+    cy.get("#userEmail").type(uniqueEmail);
     cy.get("#userPassword").type("password123");
     cy.get("#role").select("student");
 
