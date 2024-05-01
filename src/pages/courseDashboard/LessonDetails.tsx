@@ -219,10 +219,10 @@ const LessonDetails = () => {
       </div>
       <hr className="my-5 mr-10" />
       <div className="">
-        <div
+        {/* <div
           className="text-md"
           dangerouslySetInnerHTML={renderedContent}
-        ></div>
+        ></div> */}
 
         {selecteddLesson.image_link && (
           <div>
