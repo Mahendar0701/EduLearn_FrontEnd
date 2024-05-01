@@ -183,18 +183,18 @@ const LessonDetails = () => {
     });
   };
 
-  const match = selecteddLesson.video_link.match(
-    /(?:youtu.be\/|youtube(?:-nocookie)?.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
-  );
+  // const match = selecteddLesson.video_link.match(
+  //   /(?:youtu.be\/|youtube(?:-nocookie)?.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+  // );
 
-  // Check if a match is found
-  let embeddedUrl = "";
-  if (match) {
-    const videoId = match[1];
-    // Construct the embedded URL
-    embeddedUrl = `https://www.youtube.com/embed/${videoId}`;
-  }
-  const renderedContent = { __html: selecteddLesson.content };
+  // // Check if a match is found
+  // let embeddedUrl = "";
+  // if (match) {
+  //   const videoId = match[1];
+  //   // Construct the embedded URL
+  //   embeddedUrl = `https://www.youtube.com/embed/${videoId}`;
+  // }
+  // const renderedContent = { __html: selecteddLesson.content };
 
   let isCreator = false;
   const userDataString = localStorage.getItem("userData") || "";
@@ -233,7 +233,7 @@ const LessonDetails = () => {
             />
           </div>
         )}
-        {selecteddLesson.video_link && (
+        {/* {selecteddLesson.video_link && (
           <div className="mt-5">
             <iframe
               width="560"
@@ -244,7 +244,7 @@ const LessonDetails = () => {
               allowFullScreen
             ></iframe>
           </div>
-        )}
+        )} */}
       </div>
       {isCreator && (
         <div className="my-2">
