@@ -194,7 +194,7 @@ const LessonDetails = () => {
   //   // Construct the embedded URL
   //   embeddedUrl = `https://www.youtube.com/embed/${videoId}`;
   // }
-  // const renderedContent = { __html: selecteddLesson.content };
+  const renderedContent = { __html: selecteddLesson.content };
 
   let isCreator = false;
   const userDataString = localStorage.getItem("userData") || "";
@@ -219,10 +219,10 @@ const LessonDetails = () => {
       </div>
       <hr className="my-5 mr-10" />
       <div className="">
-        {/* <div
+        <div
           className="text-md"
           dangerouslySetInnerHTML={renderedContent}
-        ></div> */}
+        ></div>
 
         {selecteddLesson.image_link && (
           <div>
