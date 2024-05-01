@@ -6,7 +6,7 @@ describe("SignupForm", () => {
   it("successfully signs up with valid credentials", () => {
     const baseEmail = "test"; // Base email address
     const timestamp = new Date().getTime(); // Get current timestamp
-    const uniqueEmail = `${baseEmail}_${timestamp}@example.com`; // Unique email address
+    const uniqueEmail = `${baseEmail}_${timestamp}@example.com`;
 
     cy.get("#userName").type("Test User");
     cy.get("#userEmail").type(uniqueEmail);
